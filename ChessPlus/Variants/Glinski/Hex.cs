@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessPlus.Glinski
+namespace ChessPlus.Variants.Glinski
 {
     internal class Hex
     {
