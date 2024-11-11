@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessPlus.Pieces.Glinski
 {
-    internal class King
+    internal class HexKnight
     {
     }
 }
