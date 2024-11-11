@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessPlus.Variants.Glinski.Pieces
+namespace ChessPlus.Pieces.Glinski
 {
-    internal class Queen
+    internal class King
     {
     }
 }

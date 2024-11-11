@@ -1,12 +1,10 @@
-﻿using ChessPlus.Coordinate;
-using ChessPlus.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessPlus.BaseClasses
+namespace ChessPlus.Move
 {
     internal class BaseMove : IMove
     {

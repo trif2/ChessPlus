@@ -1,13 +1,12 @@
-﻿using ChessPlus.BaseClasses;
-using ChessPlus.Coordinate;
-using ChessPlus.Variants.Glinski;
+﻿using ChessPlus.Move;
+using ChessPlus.Pieces.Glinski;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessPlus.Interfaces
+namespace ChessPlus.Board
 {
     internal interface IBoard
     {

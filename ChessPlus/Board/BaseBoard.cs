@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessPlus.Variants.Glinski.Pieces
+namespace ChessPlus.Board
 {
-    internal class King
+    internal class BaseBoard : IBoard
     {
+
     }
 }

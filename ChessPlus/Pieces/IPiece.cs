@@ -1,14 +1,15 @@
-﻿using ChessPlus.Interfaces;
+﻿using ChessPlus.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessPlus.BaseClasses
+namespace ChessPlus.Pieces
 {
-    internal class BaseBoard : IBoard
+    internal interface IPiece
     {
+
 
     }
 }

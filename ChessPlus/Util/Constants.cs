@@ -1,4 +1,4 @@
-﻿namespace ChessPlus.Constants
+﻿namespace ChessPlus.Util
 {
     internal static class PieceType
     {

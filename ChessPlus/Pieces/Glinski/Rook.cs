@@ -1,15 +1,12 @@
-﻿using ChessPlus.Constants;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessPlus.Interfaces
+namespace ChessPlus.Pieces.Glinski
 {
-    internal interface IPiece
+    internal class Rook
     {
-        
-
     }
 }
