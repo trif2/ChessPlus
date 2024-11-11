@@ -1,21 +1,15 @@
-﻿using ChessPlus.Move;
-using ChessPlus.Pieces.Glinski;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ChessPlus.Movement;
+using ChessPlus.Pieces;
+using ChessPlus.Positions;
 
 namespace ChessPlus.Board
 {
     internal interface IBoard
     {
-        void InitializeBoard();
-        Piece GetPiece(Position pos);
-        bool IsPositionEmpty(Position pos);
-        void MovePiece(BaseMove move);
-        void IsCheck(bool whiteTurn);
-        void IsCheckmate(bool whiteTurn);
-        void IsStalemate(bool whiteTurn);
+        Piece? GetPiece(Position pos);
+        void MovePiece(Move move);
+        bool IsCheck(bool whiteTurn);
+        bool IsCheckmate(bool whiteTurn);
+        bool IsStalemate(bool whiteTurn);
     }
 }
