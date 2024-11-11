@@ -1,4 +1,4 @@
-﻿using ChessPlus.Position;
+﻿using ChessPlus.Positions;
 
 namespace ChessPlus.Direction
 {
@@ -20,12 +20,5 @@ namespace ChessPlus.Direction
             HexPosition newPosition = new HexPosition(position.Q + direction.Q, position.R + direction.R, position.S + direction.S);
             return newPosition;
         }
-    }
-    internal static class SquareDirections
-    {
-        public static readonly (int X, int Y) Up = (-1, 0);
-        public static readonly (int X, int Y) Down = (1, 0);
-        public static readonly (int X, int Y) Left = (0, -1);
-        public static readonly (int X, int Y) Right = (0, 1);
     }
 }
