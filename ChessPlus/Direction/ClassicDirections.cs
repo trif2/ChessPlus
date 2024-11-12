@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessPlus.Direction
 {
-    internal static class ClassicDirections
+    static class ClassicDirections
     {
         public static readonly (int Y, int X) Up = (-1, 0);
         public static readonly (int Y, int X) Down = (1, 0);

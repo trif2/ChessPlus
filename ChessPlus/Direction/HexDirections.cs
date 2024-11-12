@@ -2,7 +2,7 @@
 
 namespace ChessPlus.Direction
 {
-    internal static class HexDirections
+    static class HexDirections
     {
         public static readonly (int Q, int R, int S) Up = (0, 1, -1);
         public static readonly (int Q, int R, int S) Down = (0, -1, 1);

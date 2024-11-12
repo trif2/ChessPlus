@@ -1,6 +1,6 @@
 ﻿namespace ChessPlus.Util
 {
-    internal static class PieceType
+    static class PieceType
     {
         public const int Pawn = 1;
         public const int Knight = 2;

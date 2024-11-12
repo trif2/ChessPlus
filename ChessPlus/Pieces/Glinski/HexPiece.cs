@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChessPlus.Pieces.Glinski
 {
-    internal abstract class HexPiece
+    abstract class HexPiece
     {
         public bool Color { get; set; }
         public int Type { get; set; }

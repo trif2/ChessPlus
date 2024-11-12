@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ChessPlus.Pieces.Classic
 {
-    internal class Pawn : Piece
+    class Pawn : Piece
     {
         public Pawn(bool isWhite) : base(isWhite, 0)
         {

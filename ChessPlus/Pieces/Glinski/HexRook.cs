@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ChessPlus.Pieces.Glinski
 {
-    internal class HexRook : HexPiece
+    class HexRook : HexPiece
     {
         public HexRook(bool isWhite) : base(isWhite, 0)
         {

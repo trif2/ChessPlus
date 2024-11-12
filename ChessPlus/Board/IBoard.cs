@@ -4,7 +4,7 @@ using ChessPlus.Positions;
 
 namespace ChessPlus.Board
 {
-    internal interface IBoard
+    interface IBoard
     {
         void MovePiece(Move move);
         bool IsCheck(bool whiteTurn);

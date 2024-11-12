@@ -6,7 +6,7 @@ using ChessPlus.Util;
 
 namespace ChessPlus.Board.Classic
 {
-    internal class ClassicBoard : IBoard
+    class ClassicBoard : IBoard
     {
         private Piece?[,] board;
         public ClassicBoard()

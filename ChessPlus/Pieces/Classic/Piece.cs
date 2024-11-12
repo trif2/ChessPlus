@@ -4,7 +4,7 @@ using ChessPlus.Positions;
 
 namespace ChessPlus.Pieces
 {
-    internal abstract class Piece
+    abstract class Piece
     {
         public bool Color { get; set; }
         public int Type { get; set; }

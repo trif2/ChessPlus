@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChessPlus.Board.Glinski
 {
-    internal class Hex
+    class Hex
     {
         HashSet<Tuple<int, int, int>> map;
         public Hex(int size)
