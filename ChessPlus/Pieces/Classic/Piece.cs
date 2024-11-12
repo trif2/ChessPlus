@@ -1,5 +1,6 @@
 ﻿using ChessPlus.Board;
 using ChessPlus.Movement;
+using ChessPlus.Positions;
 
 namespace ChessPlus.Pieces
 {
@@ -13,6 +14,6 @@ namespace ChessPlus.Pieces
             Type = type;
         }
         // Returned moves may be illegal (validated in Board methods)
-        public abstract List<Move> GetMoves(IBoard board);
+        public abstract List<Move> GetMoves(ClassicPosition pos);
     }
 }
