@@ -15,5 +15,12 @@ namespace ChessPlus.Pieces
         }
         // Returned moves may be illegal (validated in Board methods)
         public abstract List<Move> GetMoves(ClassicPosition pos);
+
+        protected static bool IsInBounds(ClassicPosition pos)
+        {
+            int y = pos.Y;
+            int x = pos.X;
+            return y >= 0 && y < 8 && x >= 0 && x < 8;
+        }
     }
 }

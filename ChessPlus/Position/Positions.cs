@@ -33,12 +33,6 @@
             int newX = X + direction.X * scalar;
             return new ClassicPosition(newY, newX);
         }
-        public ClassicPosition AddDirections((int Y, int X) direction1, int scalar1, (int Y, int X) direction2, int scalar2)
-        {
-            int newY = Y + direction1.Y * scalar1 + direction2.Y * scalar2;
-            int newX = X + direction1.X * scalar1 + direction2.X * scalar2;
-            return new ClassicPosition(newY, newX);
-        }
     }
     internal class HexPosition(int q = 0, int r = 0, int s = 0) : Position
     {
