@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChessPlus.Movement
 {
-    internal abstract class Move
+    internal class Move
     {
         public Position From { get; set; }
         public Position To { get; set; }
@@ -18,3 +18,4 @@ namespace ChessPlus.Movement
             To = to;
         }
     }
+}

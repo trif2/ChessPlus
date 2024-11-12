@@ -6,7 +6,6 @@ namespace ChessPlus.Board
 {
     internal interface IBoard
     {
-        Piece? GetPiece(Position pos);
         void MovePiece(Move move);
         bool IsCheck(bool whiteTurn);
         bool IsCheckmate(bool whiteTurn);

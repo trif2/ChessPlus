@@ -1,5 +1,6 @@
 ﻿using ChessPlus.Movement;
 using ChessPlus.Pieces;
+using ChessPlus.Pieces.Classic;
 using ChessPlus.Positions;
 using ChessPlus.Util;
 
@@ -15,29 +16,29 @@ namespace ChessPlus.Board.Classic
         }
         private void InitializeBoard()
         {
-            board[0, 0] = new Piece(false, PieceType.Rook);
-            board[0, 1] = new Piece(false, PieceType.Knight);
-            board[0, 2] = new Piece(false, PieceType.Bishop);
-            board[0, 3] = new Piece(false, PieceType.Queen);
-            board[0, 4] = new Piece(false, PieceType.King);
-            board[0, 5] = new Piece(false, PieceType.Bishop);
-            board[0, 6] = new Piece(false, PieceType.Knight);
-            board[0, 7] = new Piece(false, PieceType.Rook);
+            board[0, 0] = new Rook(false);
+            board[0, 1] = new Knight(false);
+            board[0, 2] = new Bishop(false);
+            board[0, 3] = new Queen(false);
+            board[0, 4] = new King(false);
+            board[0, 5] = new Bishop(false);
+            board[0, 6] = new Knight(false);
+            board[0, 7] = new Rook(false);
             for (int i = 0; i < 8; i++)
             {
-                board[1, i] = new Piece(false, PieceType.Pawn);
-                board[6, i] = new Piece(true, PieceType.Pawn);
+                board[1, i] = new Pawn(false);
+                board[6, i] = new Pawn(true);
             }
-            board[7, 0] = new Piece(true, PieceType.Rook);
-            board[7, 1] = new Piece(true, PieceType.Knight);
-            board[7, 2] = new Piece(true, PieceType.Bishop);
-            board[7, 3] = new Piece(true, PieceType.Queen);
-            board[7, 4] = new Piece(true, PieceType.King);
-            board[7, 5] = new Piece(true, PieceType.Bishop);
-            board[7, 6] = new Piece(true, PieceType.Knight);
-            board[7, 7] = new Piece(true, PieceType.Rook);
+            board[7, 0] = new Rook(true);
+            board[7, 1] = new Knight(true);
+            board[7, 2] = new Bishop(true);
+            board[7, 3] = new Queen(true);
+            board[7, 4] = new King(true);
+            board[7, 5] = new Bishop(true);
+            board[7, 6] = new Knight(true);
+            board[7, 7] = new Rook(true);
         }
-        public Piece? GetPiece(Position pos)
+        public Piece? GetPiece(ClassicPosition pos)
         {
             return board[pos.Y, pos.X];
         }
@@ -48,6 +49,24 @@ namespace ChessPlus.Board.Classic
             board[move.From.Y, move.From.X] = null;
         }
 
+        public ClassicPosition GetPositionByPiece(Piece piece)
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    if (board[i, j] == piece)
+                    {
+                        return new ClassicPosition(i, j);
+                    }
+                }
+            }
+            throw new ArgumentException("Piece not found on the board.");
+        }
+        public static bool IsInBounds(ClassicPosition pos)
+        {
+            return pos.X >= 0 && pos.X < 8 && pos.Y >= 0 && pos.Y < 8;
+        }
         public bool IsCheck(bool whiteTurn)
         {
             // Check if !whiteTurn pieces can attack whiteTurn king

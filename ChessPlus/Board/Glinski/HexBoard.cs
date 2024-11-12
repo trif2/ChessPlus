@@ -35,69 +35,69 @@ namespace ChessPlus.Board.Glinski
             int whiteKingQ = 1;
             int whiteKingR = 4;
             int whiteKingS = -5;
-            board[(whiteKingQ, whiteKingR, whiteKingS)] = new HexPiece(true, PieceType.King);
+            board[(whiteKingQ, whiteKingR, whiteKingS)] = new HexKing(true);
             int blackKingQ = 1;
             int blackKingR = -5;
             int blackKingS = 4;
-            board[(blackKingQ, blackKingR, blackKingS)] = new HexPiece(false, PieceType.King);
+            board[(blackKingQ, blackKingR, blackKingS)] = new HexKing(false);
             // Queens
             int whiteQueenQ = -1;
             int whiteQueenR = 5;
             int whiteQueenS = -4;
-            board[(whiteQueenQ, whiteQueenR, whiteQueenS)] = new HexPiece(true, PieceType.Queen);
+            board[(whiteQueenQ, whiteQueenR, whiteQueenS)] = new HexQueen(true);
             int blackQueenQ = -1;
             int blackQueenR = -4;
             int blackQueenS = 5;
-            board[(blackQueenQ, blackQueenR, blackQueenS)] = new HexPiece(false, PieceType.Queen);
+            board[(blackQueenQ, blackQueenR, blackQueenS)] = new HexQueen(false);
 
             // Bishops
             for (int i = 3; i <= 5; i++)
             {
-                board[(0, i, -i)] = new HexPiece(true, PieceType.Bishop);
-                board[(0, -i, i)] = new HexPiece(false, PieceType.Bishop);
+                board[(0, i, -i)] = new HexBishop(true);
+                board[(0, -i, i)] = new HexBishop(false);
             }
 
             // Knights
             int whiteKnight1Q = 2;
             int whiteKnight1R = 3;
             int whiteKnight1S = -5;
-            board[(whiteKnight1Q, whiteKnight1R, whiteKnight1S)] = new HexPiece(true, PieceType.Knight);
+            board[(whiteKnight1Q, whiteKnight1R, whiteKnight1S)] = new HexKnight(true);
 
             int whiteKnight2Q = -2;
             int whiteKnight2R = 5;
             int whiteKnight2S = -3;
-            board[(whiteKnight2Q, whiteKnight2R, whiteKnight2S)] = new HexPiece(true, PieceType.Knight);
+            board[(whiteKnight2Q, whiteKnight2R, whiteKnight2S)] = new HexKnight(true);
 
             int blackKnight1Q = 2;
             int blackKnight1R = -5;
             int blackKnight1S = 3;
-            board[(blackKnight1Q, blackKnight1R, blackKnight1S)] = new HexPiece(false, PieceType.Knight);
+            board[(blackKnight1Q, blackKnight1R, blackKnight1S)] = new HexKnight(false);
 
             int blackKnight2Q = -2;
             int blackKnight2R = -3;
             int blackKnight2S = 5;
-            board[(blackKnight2Q, blackKnight2R, blackKnight2S)] = new HexPiece(false, PieceType.Knight);
+            board[(blackKnight2Q, blackKnight2R, blackKnight2S)] = new HexKnight(false);
 
             // Rooks
             int whiteRook1Q = 3;
             int whiteRook1R = 2;
             int whiteRook1S = -5;
-            board[(whiteRook1Q, whiteRook1R, whiteRook1S)] = new HexPiece(true, PieceType.Rook);
+            board[(whiteRook1Q, whiteRook1R, whiteRook1S)] = new HexRook(true);
 
             int whiteRook2Q = -3;
             int whiteRook2R = 5;
             int whiteRook2S = -2;
-            board[(whiteRook2Q, whiteRook2R, whiteRook2S)] = new HexPiece(true, PieceType.Rook);
+            board[(whiteRook2Q, whiteRook2R, whiteRook2S)] = new HexRook(true);
 
             int blackRook1Q = 3;
             int blackRook1R = -5;
             int blackRook1S = 2;
-            board[(blackRook1Q, blackRook1R, blackRook1S)] = new HexPiece(false, PieceType.Rook);
+            board[(blackRook1Q, blackRook1R, blackRook1S)] = new HexRook(false);
 
             int blackRook2Q = -3;
             int blackRook2R = -2;
             int blackRook2S = 5;
-            board[(blackRook2Q, blackRook2R, blackRook2S)] = new HexPiece(false, PieceType.Rook);
+            board[(blackRook2Q, blackRook2R, blackRook2S)] = new HexRook(false);
             // Pawns
 
 
@@ -121,8 +121,21 @@ namespace ChessPlus.Board.Glinski
             }
             return false;
         }
-        public void MovePiece(Move move);
-        public bool IsCheck(bool whiteTurn);
-        public bool IsCheckmate(bool whiteTurn);
-        public bool IsStalemate(bool whiteTurn);
+        public void MovePiece(Move move)
+        {
+
+        }
+        public bool IsCheck(bool whiteTurn)
+        {
+            return true;
+        }
+        public bool IsCheckmate(bool whiteTurn)
+        {
+            return true;
+        }
+        public bool IsStalemate(bool whiteTurn)
+        {
+            return true;
+        }
     }
+}
