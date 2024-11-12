@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace ChessPlus.Board.Glinski
 {
-    class HexBoard : IBoard
+    public class HexBoard : IBoard
     {
         public Hashtable board;
         public HexBoard()

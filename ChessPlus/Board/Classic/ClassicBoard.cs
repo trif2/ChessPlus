@@ -6,7 +6,7 @@ using ChessPlus.Util;
 
 namespace ChessPlus.Board.Classic
 {
-    class ClassicBoard : IBoard
+    public class ClassicBoard : IBoard
     {
         private Piece?[,] board;
         public ClassicBoard()
@@ -37,6 +37,22 @@ namespace ChessPlus.Board.Classic
             board[7, 5] = new Bishop(true);
             board[7, 6] = new Knight(true);
             board[7, 7] = new Rook(true);
+        }
+        public override string ToString()
+        {
+            string result = "";
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    result += board[i, j]?.ToString() ?? "-";
+                    result += " ";
+                }
+                result = result.Substring(0, result.Length - 1);
+                result += "\n";
+            }
+            result = result.Substring(0, result.Length - 1);
+            return result;
         }
         public Piece? GetPiece(ClassicPosition pos)
         {

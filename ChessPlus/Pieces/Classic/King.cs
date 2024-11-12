@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ChessPlus.Pieces.Classic
 {
-    class King : Piece
+    public class King : Piece
     {
         public King(bool isWhite) : base(isWhite, 0)
         {

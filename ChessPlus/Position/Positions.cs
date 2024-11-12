@@ -1,6 +1,6 @@
 ﻿namespace ChessPlus.Positions
 {
-    abstract class Position
+    public abstract class Position
     {
         public abstract int Y { get; set; }
         public abstract int X { get; set; }
@@ -8,7 +8,7 @@
         public abstract int R { get; set; }
         public abstract int S { get; set; }
     }
-    class ClassicPosition(int y, int x) : Position
+    public class ClassicPosition(int y, int x) : Position
     {
         public override int Y { get; set; } = y;
         public override int X { get; set; } = x;
@@ -34,7 +34,7 @@
             return new ClassicPosition(newY, newX);
         }
     }
-    class HexPosition(int q = 0, int r = 0, int s = 0) : Position
+    public class HexPosition(int q = 0, int r = 0, int s = 0) : Position
     {
         public override int Q { get; set; } = q;
         public override int R { get; set; } = r;
