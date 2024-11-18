@@ -1,4 +1,5 @@
 ﻿using ChessPlus.Board;
+using ChessPlus.Board.Classic;
 using ChessPlus.Direction;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
@@ -18,7 +19,7 @@ namespace ChessPlus.Pieces.Classic
             Type = PieceType.Bishop;
         }
 
-        public override List<Move> GetMoves(ClassicPosition pos)
+        public override List<Move> GetMoves(ClassicBoard board, ClassicPosition pos)
         {
             List<Move> moves = [];
 

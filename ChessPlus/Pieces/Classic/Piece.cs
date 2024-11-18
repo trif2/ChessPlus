@@ -1,4 +1,5 @@
 ﻿using ChessPlus.Board;
+using ChessPlus.Board.Classic;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
 
@@ -14,7 +15,7 @@ namespace ChessPlus.Pieces
             Type = type;
         }
         // Returned moves may be illegal (validated in Board methods)
-        public abstract List<Move> GetMoves(ClassicPosition pos);
+        public abstract List<Move> GetMoves(ClassicBoard board, ClassicPosition pos);
 
         protected static bool IsInBounds(ClassicPosition pos)
         {

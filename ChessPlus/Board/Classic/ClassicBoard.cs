@@ -9,9 +9,11 @@ namespace ChessPlus.Board.Classic
     public class ClassicBoard : IBoard
     {
         private Piece?[,] board;
+        private bool whiteTurn;
+        public const int BoardSize = 8;
         public ClassicBoard()
         {
-            board = new Piece?[8, 8];
+            board = new Piece?[BoardSize, BoardSize];
             InitializeBoard();
         }
         private void InitializeBoard()
@@ -24,7 +26,7 @@ namespace ChessPlus.Board.Classic
             board[0, 5] = new Bishop(false);
             board[0, 6] = new Knight(false);
             board[0, 7] = new Rook(false);
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < BoardSize; i++)
             {
                 board[1, i] = new Pawn(false);
                 board[6, i] = new Pawn(true);
@@ -41,9 +43,9 @@ namespace ChessPlus.Board.Classic
         public override string ToString()
         {
             string result = "";
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < BoardSize; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < BoardSize; j++)
                 {
                     result += board[i, j]?.ToString() ?? "-";
                     result += " ";
@@ -59,6 +61,7 @@ namespace ChessPlus.Board.Classic
             return board[pos.Y, pos.X];
         }
 
+        // Assumes move is legal
         public void MovePiece(Move move)
         {
             board[move.To.Y, move.To.X] = board[move.From.Y, move.From.X];
@@ -79,28 +82,44 @@ namespace ChessPlus.Board.Classic
             }
             throw new ArgumentException("Piece not found on the board.");
         }
-        public static bool IsInBounds(ClassicPosition pos)
-        {
-            return pos.X >= 0 && pos.X < 8 && pos.Y >= 0 && pos.Y < 8;
-        }
-        public bool IsCheck(bool whiteTurn)
+        public bool IsCheck()
         {
             // Check if !whiteTurn pieces can attack whiteTurn king
             throw new NotImplementedException();
         }
 
-        public bool IsCheckmate(bool whiteTurn)
+        public bool IsCheckmate()
         {
             // Simulate all possible moves for whiteTurn and check if any of them prevent check
             // If no moves prevent check, return true
             throw new NotImplementedException();
         }
 
-        public bool IsStalemate(bool whiteTurn)
+        public bool IsStalemate()
         {
             // Check for any legal moves for whiteTurn
             // If legal moves = [], return true
             throw new NotImplementedException();
+        }
+
+        public List<Move> GetLegalMoves()
+        {
+            List<Move> moves = [];
+            // For each Piece on the board, call GetMoves() and add to list
+            for (int i = 0; i < BoardSize; i++)
+            {
+                for (int j = 0; j < BoardSize; j++)
+                {
+                    Piece? piece = board[i, j];
+                    if (piece != null && piece.Color == whiteTurn)
+                    {
+                        ClassicPosition pos = new ClassicPosition(i, j);
+                        moves.AddRange(piece.GetMoves(this, pos));
+                    }
+                }
+            }
+
+            return moves;
         }
     }
 }
