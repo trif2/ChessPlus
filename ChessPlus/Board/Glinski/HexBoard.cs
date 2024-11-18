@@ -10,6 +10,7 @@ namespace ChessPlus.Board.Glinski
     public class HexBoard : IBoard
     {
         public Hashtable board;
+        private bool whiteTurn;
         public HexBoard()
         {
             board = new Hashtable();
@@ -125,15 +126,15 @@ namespace ChessPlus.Board.Glinski
         {
 
         }
-        public bool IsCheck(bool whiteTurn)
+        public bool IsCheck()
         {
             return true;
         }
-        public bool IsCheckmate(bool whiteTurn)
+        public bool IsCheckmate()
         {
             return true;
         }
-        public bool IsStalemate(bool whiteTurn)
+        public bool IsStalemate()
         {
             return true;
         }

@@ -14,7 +14,7 @@ namespace ChessPlus.Pieces.Classic
 {
     public class Knight : Piece
     {
-        public Knight(bool isWhite) : base(isWhite, 0)
+        public Knight(bool isWhite) : base(isWhite, 0, false)
         {
             Type = PieceType.Knight;
         }
@@ -50,7 +50,8 @@ namespace ChessPlus.Pieces.Classic
 
             foreach (ClassicPosition position in positions)
             {
-                if (IsInBounds(position))
+                Piece? block = board.GetPiece(position);
+                if (IsInBounds(position) && (block == null || block.Color != Color))
                 {
                     moves.Add(new Move(pos, position));
                 }

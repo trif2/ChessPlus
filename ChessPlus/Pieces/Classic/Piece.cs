@@ -9,10 +9,12 @@ namespace ChessPlus.Pieces
     {
         public bool Color { get; set; }
         public int Type { get; set; }
-        public Piece(bool isWhite, int type)
+        public bool HasMoved { get; set; }
+        public Piece(bool isWhite, int type, bool hasMoved)
         {
             Color = isWhite;
             Type = type;
+            HasMoved = hasMoved;
         }
         // Returned moves may be illegal (validated in Board methods)
         public abstract List<Move> GetMoves(ClassicBoard board, ClassicPosition pos);

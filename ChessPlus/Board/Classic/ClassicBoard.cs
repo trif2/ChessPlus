@@ -58,7 +58,7 @@ namespace ChessPlus.Board.Classic
         }
         public Piece? GetPiece(ClassicPosition pos)
         {
-            return board[pos.Y, pos.X];
+            return (pos.Y >= 0 && pos.Y < BoardSize && pos.X >= 0 && pos.X < BoardSize) ? board[pos.Y, pos.X] : null;
         }
 
         // Assumes move is legal
