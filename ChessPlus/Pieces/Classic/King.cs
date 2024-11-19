@@ -31,47 +31,49 @@ namespace ChessPlus.Pieces.Classic
             }
 
             ClassicPosition downPos = pos.AddDirection(ClassicDirections.Down, 1);
+            block = board.GetPiece(downPos);
             if (IsInBounds(downPos) && (block == null || block.Color != Color))
             {
                 moves.Add(new Move(pos, downPos));
             }
 
             ClassicPosition leftPos = pos.AddDirection(ClassicDirections.Left, 1);
+            block = board.GetPiece(leftPos);
             if (IsInBounds(leftPos) && (block == null || block.Color != Color))
             {
                 moves.Add(new Move(pos, leftPos));
             }
 
             ClassicPosition rightPos = pos.AddDirection(ClassicDirections.Right, 1);
-
+            block = board.GetPiece(rightPos);
             if (IsInBounds(rightPos) && (block == null || block.Color != Color))
             {
                 moves.Add(new Move(pos, rightPos));
             }
 
             ClassicPosition upLeftPos = pos.AddDirection(ClassicDirections.UpLeft, 1);
-
+            block = board.GetPiece(upLeftPos);
             if (IsInBounds(upLeftPos) && (block == null || block.Color != Color))
             {
                 moves.Add(new Move(pos, upLeftPos));
             }
 
             ClassicPosition upRightPos = pos.AddDirection(ClassicDirections.UpRight, 1);
-
+            block = board.GetPiece(upRightPos);
             if (IsInBounds(upRightPos) && (block == null || block.Color != Color))
             {
                 moves.Add(new Move(pos, upRightPos));
             }
 
             ClassicPosition downLeftPos = pos.AddDirection(ClassicDirections.DownLeft, 1);
-
+            block = board.GetPiece(downLeftPos);
             if (IsInBounds(downLeftPos) && (block == null || block.Color != Color))
             {
                 moves.Add(new Move(pos, downLeftPos));
             }
 
             ClassicPosition downRightPos = pos.AddDirection(ClassicDirections.DownRight, 1);
-
+            block = board.GetPiece(downRightPos);
             if (IsInBounds(downRightPos) && (block == null || block.Color != Color))
             {
                 moves.Add(new Move(pos, downRightPos));
