@@ -9,7 +9,6 @@ namespace ChessPlus.Board.Classic
     public class ClassicBoard : IBoard
     {
         private Piece?[,] board;
-        private bool whiteTurn;
         public const int BoardSize = 8;
         public ClassicBoard()
         {
@@ -111,7 +110,7 @@ namespace ChessPlus.Board.Classic
                 for (int j = 0; j < BoardSize; j++)
                 {
                     Piece? piece = board[i, j];
-                    if (piece != null && piece.Color == whiteTurn)
+                    if (piece != null)
                     {
                         ClassicPosition pos = new ClassicPosition(i, j);
                         moves.AddRange(piece.GetMoves(this, pos));

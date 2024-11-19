@@ -21,85 +21,28 @@ namespace ChessPlus.Pieces.Classic
         public override List<Move> GetMoves(ClassicBoard board, ClassicPosition pos)
         {
             List<Move> moves = [];
+            List<(int Y, int Z)> directions = [];
 
-            ClassicPosition upPos = pos.AddDirection(ClassicDirections.Up, 1);
-            while (IsInBounds(upPos))
-            {
-                Piece? block = board.GetPiece(upPos);
-                if (block != null && block.Color == Color) break;
-                moves.Add(new Move(pos, upPos));
-                if (block != null && block.Color != Color) break;
-                upPos = upPos.AddDirection(ClassicDirections.Up, 1);
-            }
+            directions.Add(ClassicDirections.Up);
+            directions.Add(ClassicDirections.Down);
+            directions.Add(ClassicDirections.Left);
+            directions.Add(ClassicDirections.Right);
+            directions.Add(ClassicDirections.UpLeft);
+            directions.Add(ClassicDirections.UpRight);
+            directions.Add(ClassicDirections.DownLeft);
+            directions.Add(ClassicDirections.DownRight);
 
-            ClassicPosition downPos = pos.AddDirection(ClassicDirections.Down, 1);
-            while (IsInBounds(downPos))
+            foreach ((int Y, int X) direction in directions)
             {
-                Piece? block = board.GetPiece(downPos);
-                if (block != null && block.Color == Color) break;
-                moves.Add(new Move(pos, downPos));
-                if (block != null && block.Color != Color) break;
-                downPos = downPos.AddDirection(ClassicDirections.Down, 1);
-            }
-
-            ClassicPosition leftPos = pos.AddDirection(ClassicDirections.Left, 1);
-            while (IsInBounds(leftPos))
-            {
-                Piece? block = board.GetPiece(leftPos);
-                if (block != null && block.Color == Color) break;
-                moves.Add(new Move(pos, leftPos));
-                if (block != null && block.Color != Color) break;
-                leftPos = leftPos.AddDirection(ClassicDirections.Left, 1);
-            }
-
-            ClassicPosition rightPos = pos.AddDirection(ClassicDirections.Right, 1);
-            while (IsInBounds(rightPos))
-            {
-                Piece? block = board.GetPiece(rightPos);
-                if (block != null && block.Color == Color) break;
-                moves.Add(new Move(pos, rightPos));
-                if (block != null && block.Color != Color) break;
-                rightPos = rightPos.AddDirection(ClassicDirections.Right, 1);
-            }
-
-            ClassicPosition upLeftPos = pos.AddDirection(ClassicDirections.UpLeft, 1);
-            while (IsInBounds(upLeftPos))
-            {
-                Piece? block = board.GetPiece(upLeftPos);
-                if (block != null && block.Color == Color) break;
-                moves.Add(new Move(pos, upLeftPos));
-                if (block != null && block.Color != Color) break;
-                upLeftPos = upLeftPos.AddDirection(ClassicDirections.UpLeft, 1);
-            }
-
-            ClassicPosition upRightPos = pos.AddDirection(ClassicDirections.UpRight, 1);
-            while (IsInBounds(upRightPos))
-            {
-                Piece? block = board.GetPiece(upRightPos);
-                if (block != null && block.Color == Color) break;
-                moves.Add(new Move(pos, upRightPos));
-                if (block != null && block.Color != Color) break;
-                upRightPos = upRightPos.AddDirection(ClassicDirections.UpRight, 1);
-            }
-
-            ClassicPosition downLeftPos = pos.AddDirection(ClassicDirections.DownLeft, 1);
-            while (IsInBounds(downLeftPos))
-            {
-                Piece? block = board.GetPiece(downLeftPos);
-                if (block != null && block.Color == Color) break;
-                moves.Add(new Move(pos, downLeftPos));
-                if (block != null && block.Color != Color) break;
-                downLeftPos = downLeftPos.AddDirection(ClassicDirections.DownLeft, 1);
-            }
-
-            ClassicPosition downRightPos = pos.AddDirection(ClassicDirections.DownRight, 1);
-            while (IsInBounds(downRightPos))
-            {
-                Piece? block = board.GetPiece(downRightPos);
-                if (block != null && block.Color == Color) break;
-                moves.Add(new Move(pos, downRightPos));
-                if (block != null && block.Color != Color) break;
-                downRightPos = downRightPos.AddDirection(ClassicDirections.DownRight, 1);
+                ClassicPosition nextPos = pos.AddDirection(direction, 1);
+                while (IsInBounds(nextPos))
+                {
+                    Piece? block = board.GetPiece(nextPos);
+                    if (block != null && block.Color == Color) break;
+                    moves.Add(new Move(pos, nextPos));
+                    if (block != null && block.Color != Color) break;
+                    nextPos = nextPos.AddDirection(direction, 1);
+                }
             }
 
             return moves;

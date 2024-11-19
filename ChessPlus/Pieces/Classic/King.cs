@@ -23,60 +23,23 @@ namespace ChessPlus.Pieces.Classic
             List<Move> moves = [];
             Piece? block;
 
-            ClassicPosition upPos = pos.AddDirection(ClassicDirections.Up, 1);
-            block = board.GetPiece(upPos);
-            if (IsInBounds(upPos) && (block == null || block.Color != Color))
-            {
-                moves.Add(new Move(pos, upPos));
-            }
+            List<ClassicPosition> positions = [];
+            positions.Add(pos.AddDirection(ClassicDirections.Up, 1));
+            positions.Add(pos.AddDirection(ClassicDirections.Down, 1));
+            positions.Add(pos.AddDirection(ClassicDirections.Left, 1));
+            positions.Add(pos.AddDirection(ClassicDirections.Right, 1));
+            positions.Add(pos.AddDirection(ClassicDirections.UpLeft, 1));
+            positions.Add(pos.AddDirection(ClassicDirections.UpRight, 1));
+            positions.Add(pos.AddDirection(ClassicDirections.DownLeft, 1));
+            positions.Add(pos.AddDirection(ClassicDirections.DownRight, 1));
 
-            ClassicPosition downPos = pos.AddDirection(ClassicDirections.Down, 1);
-            block = board.GetPiece(downPos);
-            if (IsInBounds(downPos) && (block == null || block.Color != Color))
+            foreach (ClassicPosition position in positions)
             {
-                moves.Add(new Move(pos, downPos));
-            }
-
-            ClassicPosition leftPos = pos.AddDirection(ClassicDirections.Left, 1);
-            block = board.GetPiece(leftPos);
-            if (IsInBounds(leftPos) && (block == null || block.Color != Color))
-            {
-                moves.Add(new Move(pos, leftPos));
-            }
-
-            ClassicPosition rightPos = pos.AddDirection(ClassicDirections.Right, 1);
-            block = board.GetPiece(rightPos);
-            if (IsInBounds(rightPos) && (block == null || block.Color != Color))
-            {
-                moves.Add(new Move(pos, rightPos));
-            }
-
-            ClassicPosition upLeftPos = pos.AddDirection(ClassicDirections.UpLeft, 1);
-            block = board.GetPiece(upLeftPos);
-            if (IsInBounds(upLeftPos) && (block == null || block.Color != Color))
-            {
-                moves.Add(new Move(pos, upLeftPos));
-            }
-
-            ClassicPosition upRightPos = pos.AddDirection(ClassicDirections.UpRight, 1);
-            block = board.GetPiece(upRightPos);
-            if (IsInBounds(upRightPos) && (block == null || block.Color != Color))
-            {
-                moves.Add(new Move(pos, upRightPos));
-            }
-
-            ClassicPosition downLeftPos = pos.AddDirection(ClassicDirections.DownLeft, 1);
-            block = board.GetPiece(downLeftPos);
-            if (IsInBounds(downLeftPos) && (block == null || block.Color != Color))
-            {
-                moves.Add(new Move(pos, downLeftPos));
-            }
-
-            ClassicPosition downRightPos = pos.AddDirection(ClassicDirections.DownRight, 1);
-            block = board.GetPiece(downRightPos);
-            if (IsInBounds(downRightPos) && (block == null || block.Color != Color))
-            {
-                moves.Add(new Move(pos, downRightPos));
+                block = board.GetPiece(position);
+                if (IsInBounds(position) && (block == null || block.Color != Color))
+                {
+                    moves.Add(new Move(pos, position));
+                }
             }
 
             return moves;
