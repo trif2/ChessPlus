@@ -76,6 +76,7 @@ namespace ChessPlus.Pieces.Classic
             while (IsInBounds(upRightPos))
             {
                 Piece? block = board.GetPiece(upRightPos);
+                if (block != null && block.Color == Color) break;
                 moves.Add(new Move(pos, upRightPos));
                 if (block != null && block.Color != Color) break;
                 upRightPos = upRightPos.AddDirection(ClassicDirections.UpRight, 1);

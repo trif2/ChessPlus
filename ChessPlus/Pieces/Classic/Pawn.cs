@@ -75,7 +75,7 @@ namespace ChessPlus.Pieces.Classic
 
                 ClassicPosition downPos = pos.AddDirection(ClassicDirections.Down, 1);
                 block = board.GetPiece(downPos);
-                if (IsInBounds(downPos) && block != null)
+                if (IsInBounds(downPos) && block == null)
                 {
                     moves.Add(new Move(pos, downPos));
                     if (!HasMoved)
