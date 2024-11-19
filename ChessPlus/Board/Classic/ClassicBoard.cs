@@ -17,27 +17,27 @@ namespace ChessPlus.Board.Classic
         }
         private void InitializeBoard()
         {
-            board[0, 0] = new Rook(false);
-            board[0, 1] = new Knight(false);
-            board[0, 2] = new Bishop(false);
-            board[0, 3] = new Queen(false);
-            board[0, 4] = new King(false);
-            board[0, 5] = new Bishop(false);
-            board[0, 6] = new Knight(false);
-            board[0, 7] = new Rook(false);
+            board[0, 0] = new Rook(Color.Black);
+            board[0, 1] = new Knight(Color.Black);
+            board[0, 2] = new Bishop(Color.Black);
+            board[0, 3] = new Queen(Color.Black);
+            board[0, 4] = new King(Color.Black);
+            board[0, 5] = new Bishop(Color.Black);
+            board[0, 6] = new Knight(Color.Black);
+            board[0, 7] = new Rook(Color.Black);
             for (int i = 0; i < BoardSize; i++)
             {
-                board[1, i] = new Pawn(false);
-                board[6, i] = new Pawn(true);
+                board[1, i] = new Pawn(Color.Black);
+                board[6, i] = new Pawn(Color.White);
             }
-            board[7, 0] = new Rook(true);
-            board[7, 1] = new Knight(true);
-            board[7, 2] = new Bishop(true);
-            board[7, 3] = new Queen(true);
-            board[7, 4] = new King(true);
-            board[7, 5] = new Bishop(true);
-            board[7, 6] = new Knight(true);
-            board[7, 7] = new Rook(true);
+            board[7, 0] = new Rook(Color.White);
+            board[7, 1] = new Knight(Color.White);
+            board[7, 2] = new Bishop(Color.White);
+            board[7, 3] = new Queen(Color.White);
+            board[7, 4] = new King(Color.White);
+            board[7, 5] = new Bishop(Color.White);
+            board[7, 6] = new Knight(Color.White);
+            board[7, 7] = new Rook(Color.White);
         }
         public override string ToString()
         {

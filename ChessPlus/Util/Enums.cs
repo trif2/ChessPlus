@@ -9,4 +9,9 @@
         public const int Queen = 5;
         public const int King = 6;
     }
+    static class Color
+    {
+        public const bool White = true;
+        public const bool Black = false;
+    }
 }
