@@ -7,7 +7,7 @@ namespace ChessPlus.Board
     interface IBoard
     {
         void MovePiece(Move move);
-        bool IsCheck();
+        //bool IsKingInCheck(bool whiteTurn);
         bool IsCheckmate();
         bool IsStalemate();
     }

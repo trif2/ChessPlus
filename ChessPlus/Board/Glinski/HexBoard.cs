@@ -126,7 +126,7 @@ namespace ChessPlus.Board.Glinski
         {
 
         }
-        public bool IsCheck()
+        public bool IsCheck(List<Move> moves, bool whiteTurn)
         {
             return true;
         }

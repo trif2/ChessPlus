@@ -69,9 +69,9 @@ namespace ChessPlus.Board.Classic
 
         public ClassicPosition GetPositionByPiece(Piece piece)
         {
-            for (int i = 0; i < board.GetLength(0); i++)
+            for (int i = 0; i < BoardSize; i++)
             {
-                for (int j = 0; j < board.GetLength(1); j++)
+                for (int j = 0; j < BoardSize; j++)
                 {
                     if (board[i, j] == piece)
                     {
@@ -81,10 +81,38 @@ namespace ChessPlus.Board.Classic
             }
             throw new ArgumentException("Piece not found on the board.");
         }
-        public bool IsCheck()
+        public static bool IsKingInCheck(ClassicBoard classicBoard, bool whiteTurn)
         {
-            // Check if !whiteTurn pieces can attack whiteTurn king
-            throw new NotImplementedException();
+            int y = 0;
+            int x = 0;
+            bool kingFound = false;
+            while (y < BoardSize) {
+                while (x < BoardSize)
+                {
+                    Piece? piece = classicBoard.GetPiece(new ClassicPosition(y, x));
+                    if (piece != null && piece.Color == whiteTurn && piece.Type == PieceType.King)
+                    {
+                        break;
+                    }
+                    x++;
+                }
+                if (kingFound)
+                {
+                    break;
+                }
+                y++;
+            }
+
+            List<Move> moves = classicBoard.GetAllPotentialMoves(!whiteTurn);
+            foreach (Move move in moves)
+            {
+                if (move.To.Y == y && move.To.X == x)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool IsCheckmate()
@@ -101,7 +129,8 @@ namespace ChessPlus.Board.Classic
             throw new NotImplementedException();
         }
 
-        public List<Move> GetLegalMoves()
+        // Returns all possible moves for the current player, does not account for checks
+        public List<Move> GetAllPotentialMoves(bool whiteTurn)
         {
             List<Move> moves = [];
             // For each Piece on the board, call GetMoves() and add to list
@@ -110,7 +139,7 @@ namespace ChessPlus.Board.Classic
                 for (int j = 0; j < BoardSize; j++)
                 {
                     Piece? piece = board[i, j];
-                    if (piece != null)
+                    if (piece != null && whiteTurn == piece.Color)
                     {
                         ClassicPosition pos = new ClassicPosition(i, j);
                         moves.AddRange(piece.GetMoves(this, pos));
@@ -120,5 +149,4 @@ namespace ChessPlus.Board.Classic
 
             return moves;
         }
-    }
 }
