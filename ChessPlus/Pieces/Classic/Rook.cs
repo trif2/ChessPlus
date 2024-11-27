@@ -1,14 +1,9 @@
-﻿using ChessPlus.Board;
-using ChessPlus.Board.Classic;
+﻿using ChessPlus.Board.Classic;
 using ChessPlus.Direction;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
 using ChessPlus.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ChessPlus.Pieces.Classic
 {

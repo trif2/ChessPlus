@@ -1,11 +1,4 @@
-﻿using ChessPlus.Positions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChessPlus.Positions
+﻿namespace ChessPlus.Positions
 {
     public static class Square
     {

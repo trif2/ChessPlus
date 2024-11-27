@@ -1,6 +1,4 @@
-﻿using ChessPlus.Positions;
-
-namespace ChessPlus.Direction
+﻿namespace ChessPlus.Direction
 {
     static class HexDirections
     {

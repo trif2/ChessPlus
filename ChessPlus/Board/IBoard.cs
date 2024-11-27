@@ -1,6 +1,4 @@
 ﻿using ChessPlus.Movement;
-using ChessPlus.Pieces;
-using ChessPlus.Positions;
 
 namespace ChessPlus.Board
 {

@@ -1,11 +1,5 @@
 ﻿using ChessPlus.Movement;
 using ChessPlus.Positions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace ChessPlus.Pieces.Glinski
 {
     public abstract class HexPiece

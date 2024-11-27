@@ -1,5 +1,4 @@
-﻿using ChessPlus.Board;
-using ChessPlus.Board.Classic;
+﻿using ChessPlus.Board.Classic;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
 
