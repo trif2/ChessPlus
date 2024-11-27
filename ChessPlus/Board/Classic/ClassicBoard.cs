@@ -39,34 +39,11 @@ namespace ChessPlus.Board.Classic
             board[7, 6] = new Knight(Color.White);
             board[7, 7] = new Rook(Color.White);
         }
-        public override string ToString()
-        {
-            string result = "";
-            for (int i = 0; i < BoardSize; i++)
-            {
-                for (int j = 0; j < BoardSize; j++)
-                {
-                    result += board[i, j]?.ToString() ?? "-";
-                    result += " ";
-                }
-                result = result.Substring(0, result.Length - 1);
-                result += "\n";
-            }
-            result = result.Substring(0, result.Length - 1);
-            return result;
-        }
+
         public Piece? GetPiece(ClassicPosition pos)
         {
             return (pos.Y >= 0 && pos.Y < BoardSize && pos.X >= 0 && pos.X < BoardSize) ? board[pos.Y, pos.X] : null;
         }
-
-        // Assumes move is legal
-        public void MovePiece(Move move)
-        {
-            board[move.To.Y, move.To.X] = board[move.From.Y, move.From.X];
-            board[move.From.Y, move.From.X] = null;
-        }
-
         public ClassicPosition GetPositionByPiece(Piece piece)
         {
             for (int i = 0; i < BoardSize; i++)
@@ -81,32 +58,46 @@ namespace ChessPlus.Board.Classic
             }
             throw new ArgumentException("Piece not found on the board.");
         }
-        public static bool IsKingInCheck(ClassicBoard classicBoard, bool whiteTurn)
+        // Assumes move is legal
+        public void MovePiece(Move move)
         {
-            int y = 0;
-            int x = 0;
-            bool kingFound = false;
-            while (y < BoardSize) {
-                while (x < BoardSize)
-                {
-                    Piece? piece = classicBoard.GetPiece(new ClassicPosition(y, x));
-                    if (piece != null && piece.Color == whiteTurn && piece.Type == PieceType.King)
-                    {
-                        break;
-                    }
-                    x++;
-                }
-                if (kingFound)
-                {
-                    break;
-                }
-                y++;
-            }
+            board[move.To.Y, move.To.X] = board[move.From.Y, move.From.X];
+            board[move.From.Y, move.From.X] = null;
+        }
+        public void UndoMove(Move move, Piece? capturedPiece)
+        {
+            board[move.From.Y, move.From.X] = board[move.To.Y, move.To.X];
+            board[move.To.Y, move.To.X] = capturedPiece;
+        }
+        public List<Move> GetLegalMoves(bool whiteTurn)
+        {
+            List<Move> moves = GetAllPotentialMoves(whiteTurn);
 
-            List<Move> moves = classicBoard.GetAllPotentialMoves(!whiteTurn);
+
+            for (int i = moves.Count - 1; i >= 0; i--)
+            {
+                Move move = moves[i];
+                Piece? prevCapture = GetPiece((ClassicPosition) move.To);
+                // Simulate move
+                MovePiece(move);
+                if (IsKingInCheck(whiteTurn))
+                {
+                    moves.RemoveAt(i);
+                }
+                UndoMove(move, prevCapture);
+            }
+            return moves;
+        }
+
+        // Simulate move and check if whiteTurn king is in check
+        public bool IsKingInCheck(bool whiteTurn)
+        {
+            ClassicPosition kingPosition = FindKing(whiteTurn) ?? throw new System.Exception("King not found");
+
+            List<Move> moves = GetAllPotentialMoves(!whiteTurn);
             foreach (Move move in moves)
             {
-                if (move.To.Y == y && move.To.X == x)
+                if (move.To.Y == kingPosition.Y && move.To.X == kingPosition.X)
                 {
                     return true;
                 }
@@ -115,19 +106,22 @@ namespace ChessPlus.Board.Classic
             return false;
         }
 
-        public bool IsCheckmate()
+        // Returns the king position where color == whiteTurn
+        private ClassicPosition? FindKing(bool whiteTurn)
         {
-            // Simulate all possible moves for whiteTurn and check if any of them prevent check
-            // If no moves prevent check, return true
-            throw new NotImplementedException();
+            for (int i = 0; i < BoardSize; i++) {
+                for (int j = 0; j < BoardSize; j++)
+                {
+                    Piece? piece = board[i, j];
+                    if (piece != null && piece.Color == whiteTurn && piece.Type == PieceType.King)
+                    {
+                        return new ClassicPosition(i, j);
+                    }
+                }
+            }
+            return null;
         }
 
-        public bool IsStalemate()
-        {
-            // Check for any legal moves for whiteTurn
-            // If legal moves = [], return true
-            throw new NotImplementedException();
-        }
 
         // Returns all possible moves for the current player, does not account for checks
         public List<Move> GetAllPotentialMoves(bool whiteTurn)
@@ -149,4 +143,35 @@ namespace ChessPlus.Board.Classic
 
             return moves;
         }
+
+        public bool IsCheckmate()
+        {
+            // Simulate all possible moves for whiteTurn and check if any of them prevent check
+            // If no moves prevent check, return true
+            throw new NotImplementedException();
+        }
+        public bool IsStalemate()
+        {
+            // Check for any legal moves for whiteTurn
+            // If legal moves = [], return true
+            throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            string result = "";
+            for (int i = 0; i < BoardSize; i++)
+            {
+                for (int j = 0; j < BoardSize; j++)
+                {
+                    result += board[i, j]?.ToString() ?? "-";
+                    result += " ";
+                }
+                result = result.Substring(0, result.Length - 1);
+                result += "\n";
+            }
+            result = result.Substring(0, result.Length - 1);
+            return result;
+        }
+    }
 }
