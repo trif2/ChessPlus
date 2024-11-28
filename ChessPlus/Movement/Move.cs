@@ -50,5 +50,14 @@ namespace ChessPlus.Movement
             int number = 8 - pos.Y;
             return letter + number.ToString();
         }
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            Move m = (Move)obj;
+            return From.Equals(m.From) && To.Equals(m.To);
+        }
     }
 }

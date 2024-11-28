@@ -47,6 +47,15 @@
             }
             return true;
         }
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            ClassicPosition pos = (ClassicPosition)obj;
+            return Y == pos.Y && X == pos.X;
+        }
     }
     public class HexPosition(int q = 0, int r = 0, int s = 0) : Position
     {
