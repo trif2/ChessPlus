@@ -6,7 +6,7 @@ namespace ChessPlus.Board
     {
         void MovePiece(Move move);
         //bool IsKingInCheck(bool whiteTurn);
-        bool IsCheckmate();
-        bool IsStalemate();
+        bool IsCheckmate(bool whiteTurn);
+        bool IsStalemate(bool whiteTurn);
     }
 }

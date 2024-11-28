@@ -144,17 +144,21 @@ namespace ChessPlus.Board.Classic
             return moves;
         }
 
-        public bool IsCheckmate()
+        public bool IsCheckmate(bool whiteTurn)
         {
-            // Simulate all possible moves for whiteTurn and check if any of them prevent check
-            // If no moves prevent check, return true
-            throw new NotImplementedException();
+            if (GetLegalMoves(whiteTurn).Count == 0 && IsKingInCheck(whiteTurn))
+            {
+                return true;
+            }
+            return false;
         }
-        public bool IsStalemate()
+        public bool IsStalemate(bool whiteTurn)
         {
-            // Check for any legal moves for whiteTurn
-            // If legal moves = [], return true
-            throw new NotImplementedException();
+            if (GetLegalMoves(whiteTurn).Count == 0 && !IsKingInCheck(whiteTurn))
+            {
+                return true;
+            }
+            return false;
         }
 
         public override string ToString()
