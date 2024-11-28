@@ -33,6 +33,20 @@
             int newX = X + direction.X * scalar;
             return new ClassicPosition(newY, newX);
         }
+        public static ClassicPosition StringToPosition(string position)
+        {
+            int x = position[0] - 'a';
+            int y = 8 - (position[1] - '0');
+            return new ClassicPosition(y, x);
+        }
+        public bool IsValidPosition()
+        {
+            if (Y < 0 || Y > 7 || X < 0 || X > 7)
+            {
+                return false;
+            }
+            return true;
+        }
     }
     public class HexPosition(int q = 0, int r = 0, int s = 0) : Position
     {
