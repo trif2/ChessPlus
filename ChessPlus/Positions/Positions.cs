@@ -39,6 +39,12 @@
             int y = 8 - (position[1] - '0');
             return new ClassicPosition(y, x);
         }
+        public override string ToString()
+        {
+            char file = (char)('a' + X);
+            int rank = 8 - Y;
+            return $"{file}{rank}";
+        }
         public bool IsValidPosition()
         {
             if (Y < 0 || Y > 7 || X < 0 || X > 7)
