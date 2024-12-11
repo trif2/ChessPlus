@@ -3,43 +3,118 @@ using ChessPlus.Pieces;
 using ChessPlus.Pieces.Classic;
 using ChessPlus.Positions;
 using ChessPlus.Util;
+using System.Runtime.CompilerServices;
 
 namespace ChessPlus.Board.Classic
 {
     public class ClassicBoard : IBoard
     {
         private Piece?[,] board;
+        private bool whiteToMove;
+        private bool whiteKingCastle;
+        private bool whiteQueenCastle;
+        private bool blackKingCastle;
+        private bool blackQueenCastle;
+        private ClassicPosition? enPassantTarget;
+        private int halfMoveClock;
+        private int fullMoveNumber;
+
         public const int BoardSize = 8;
-        public ClassicBoard()
+        private const string DefaultBoard = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+        public ClassicBoard(string fen = DefaultBoard)
         {
+            string[] fields = fen.Split(" ");
             board = new Piece?[BoardSize, BoardSize];
-            InitializeBoard();
-        }
-        private void InitializeBoard()
-        {
-            board[0, 0] = new Rook(Color.Black);
-            board[0, 1] = new Knight(Color.Black);
-            board[0, 2] = new Bishop(Color.Black);
-            board[0, 3] = new Queen(Color.Black);
-            board[0, 4] = new King(Color.Black);
-            board[0, 5] = new Bishop(Color.Black);
-            board[0, 6] = new Knight(Color.Black);
-            board[0, 7] = new Rook(Color.Black);
-            for (int i = 0; i < BoardSize; i++)
-            {
-                board[1, i] = new Pawn(Color.Black);
-                board[6, i] = new Pawn(Color.White);
-            }
-            board[7, 0] = new Rook(Color.White);
-            board[7, 1] = new Knight(Color.White);
-            board[7, 2] = new Bishop(Color.White);
-            board[7, 3] = new Queen(Color.White);
-            board[7, 4] = new King(Color.White);
-            board[7, 5] = new Bishop(Color.White);
-            board[7, 6] = new Knight(Color.White);
-            board[7, 7] = new Rook(Color.White);
+            InitializeBoardPieces(fields[0]);
+
+            whiteToMove = fields[1] == "w";
+
+            whiteKingCastle = fields[2].Contains('K');
+            whiteQueenCastle = fields[2].Contains('Q');
+            blackKingCastle = fields[2].Contains('k');
+            blackQueenCastle = fields[2].Contains('q');
+
+            enPassantTarget = fields[3] == "-" ? null : ClassicPosition.StringToPosition(fields[3]);
+
+            halfMoveClock = int.Parse(fields[4]);
+
+            fullMoveNumber = int.Parse(fields[5]);
         }
 
+        private void InitializeBoardPieces(string fen)
+        {
+            string[] rows = fen.Split("/");
+            int i = 0;
+            foreach(string row in rows)
+            {
+                int j = 0;
+                for (int k = 0; k < row.Length; k++)
+                {
+                    char c = row[k];
+                    if (char.IsDigit(c))
+                    {
+                        j += int.Parse(c.ToString());
+                    } else
+                    {
+                        board[i, j] = PieceFen.CreatePiece(c);
+                        j++;
+                    }
+                }
+                i++;
+            }
+        }
+        public string ExportToFen()
+        {
+            string fen = "";
+            for (int i = 0; i < BoardSize; i++)
+            {
+                int gap = 0;
+                for (int j = 0; j < BoardSize; j++)
+                {
+                    if (board[i, j] != null)
+                    {
+                        if (gap > 0)
+                        {
+                            fen += gap.ToString();
+                        }
+                        fen += PieceFen.GetAbbrev(board[i, j]!);
+                    }
+                    else
+                    {
+                        gap++;
+                    }
+                }
+                if (gap > 0)
+                {
+                    fen += gap.ToString();
+                }
+                if (i < BoardSize - 1)
+                {
+                    fen += "/";
+                }
+            }
+            fen += " ";
+            fen += whiteToMove ? "w" : "b";
+            fen += " ";
+            if (whiteKingCastle || whiteQueenCastle || blackKingCastle || blackQueenCastle)
+            {
+                fen += whiteKingCastle ? "K" : "";
+                fen += whiteQueenCastle ? "Q" : "";
+                fen += blackKingCastle ? "k" : "";
+                fen += blackQueenCastle ? "q" : "";
+            }
+            else
+            {
+                fen += "-";
+            }
+            fen += " ";
+            fen += enPassantTarget == null ? "-" : enPassantTarget.ToString();
+            fen += " ";
+            fen += halfMoveClock.ToString() + " " + fullMoveNumber.ToString();
+
+            return fen;
+        }
         public Piece? GetPiece(ClassicPosition pos)
         {
             return (pos.Y >= 0 && pos.Y < BoardSize && pos.X >= 0 && pos.X < BoardSize) ? board[pos.Y, pos.X] : null;
