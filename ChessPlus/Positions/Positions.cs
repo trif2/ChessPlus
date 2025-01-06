@@ -1,5 +1,10 @@
-﻿namespace ChessPlus.Positions
+﻿using System.Text.Json.Serialization;
+
+namespace ChessPlus.Positions
 {
+    [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+    [JsonDerivedType(typeof(ClassicPosition))]
+    [JsonDerivedType(typeof(HexPosition))]
     public abstract class Position
     {
         public abstract int Y { get; set; }
@@ -12,16 +17,19 @@
     {
         public override int Y { get; set; } = y;
         public override int X { get; set; } = x;
+        [JsonIgnore]
         public override int Q
         {
             get => throw new NotSupportedException();
             set => throw new NotSupportedException();
         }
+        [JsonIgnore]
         public override int R
         {
             get => throw new NotSupportedException();
             set => throw new NotSupportedException();
         }
+        [JsonIgnore]
         public override int S
         {
             get => throw new NotSupportedException();
@@ -68,11 +76,13 @@
         public override int Q { get; set; } = q;
         public override int R { get; set; } = r;
         public override int S { get; set; } = s;
+        [JsonIgnore]
         public override int Y
         {
             get => throw new NotSupportedException();
             set => throw new NotSupportedException();
         }
+        [JsonIgnore]
         public override int X
         {
             get => throw new NotSupportedException();
