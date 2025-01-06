@@ -134,10 +134,14 @@ namespace ChessPlus.Board.Classic
             throw new ArgumentException("Piece not found on the board.");
         }
         // Assumes move is legal
-        public void MovePiece(Move move)
+        public void MovePiece(Move move, bool simulate = false)
         {
             board[move.To.Y, move.To.X] = board[move.From.Y, move.From.X];
             board[move.From.Y, move.From.X] = null;
+            if (!simulate)
+            {
+                whiteToMove = !whiteToMove;
+            }
         }
         public void UndoMove(Move move, Piece? capturedPiece)
         {
@@ -154,7 +158,7 @@ namespace ChessPlus.Board.Classic
                 Move move = moves[i];
                 Piece? prevCapture = GetPiece((ClassicPosition) move.To);
                 // Simulate move
-                MovePiece(move);
+                MovePiece(move, true);
                 if (IsKingInCheck(whiteToMove))
                 {
                     moves.RemoveAt(i);

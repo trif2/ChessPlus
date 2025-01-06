@@ -122,7 +122,7 @@ namespace ChessPlus.Board.Glinski
             }
             return false;
         }
-        public void MovePiece(Move move)
+        public void MovePiece(Move move, bool simulate = false)
         {
 
         }
