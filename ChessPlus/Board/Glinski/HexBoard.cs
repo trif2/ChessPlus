@@ -130,11 +130,11 @@ namespace ChessPlus.Board.Glinski
         {
             return true;
         }
-        public bool IsCheckmate(bool whiteTurn)
+        public bool IsCheckmate()
         {
             return true;
         }
-        public bool IsStalemate(bool whiteTurn)
+        public bool IsStalemate()
         {
             return true;
         }
