@@ -12,7 +12,11 @@ namespace ChessPlus.Movement
             From = from;
             To = to;
         }
-
+        public Move(string from, string to)
+        {
+            From = ClassicPosition.StringToPosition(from);
+            To = ClassicPosition.StringToPosition(to);
+        }
         public override string ToString()
         {
             return PositionToString(From) + PositionToString(To);
