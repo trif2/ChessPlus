@@ -144,9 +144,9 @@ namespace ChessPlus.Board.Classic
             board[move.From.Y, move.From.X] = board[move.To.Y, move.To.X];
             board[move.To.Y, move.To.X] = capturedPiece;
         }
-        public List<Move> GetLegalMoves(bool whiteTurn)
+        public List<Move> GetLegalMoves()
         {
-            List<Move> moves = GetAllPotentialMoves(whiteTurn);
+            List<Move> moves = GetAllPotentialMoves(whiteToMove);
 
 
             for (int i = moves.Count - 1; i >= 0; i--)
@@ -155,7 +155,7 @@ namespace ChessPlus.Board.Classic
                 Piece? prevCapture = GetPiece((ClassicPosition) move.To);
                 // Simulate move
                 MovePiece(move);
-                if (IsKingInCheck(whiteTurn))
+                if (IsKingInCheck(whiteToMove))
                 {
                     moves.RemoveAt(i);
                 }
@@ -219,17 +219,17 @@ namespace ChessPlus.Board.Classic
             return moves;
         }
 
-        public bool IsCheckmate(bool whiteTurn)
+        public bool IsCheckmate()
         {
-            if (GetLegalMoves(whiteTurn).Count == 0 && IsKingInCheck(whiteTurn))
+            if (GetLegalMoves().Count == 0 && IsKingInCheck(whiteToMove))
             {
                 return true;
             }
             return false;
         }
-        public bool IsStalemate(bool whiteTurn)
+        public bool IsStalemate()
         {
-            if (GetLegalMoves(whiteTurn).Count == 0 && !IsKingInCheck(whiteTurn))
+            if (GetLegalMoves().Count == 0 && !IsKingInCheck(whiteToMove))
             {
                 return true;
             }
