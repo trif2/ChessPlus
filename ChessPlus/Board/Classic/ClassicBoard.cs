@@ -79,6 +79,7 @@ namespace ChessPlus.Board.Classic
                             fen += gap.ToString();
                         }
                         fen += PieceFen.GetAbbrev(board[i, j]!);
+                        gap = 0;
                     }
                     else
                     {
