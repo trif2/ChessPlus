@@ -2,9 +2,9 @@
 
 namespace ChessPlus.Positions
 {
-    [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
-    [JsonDerivedType(typeof(ClassicPosition))]
-    [JsonDerivedType(typeof(HexPosition))]
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type", UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+    [JsonDerivedType(typeof(ClassicPosition), "classic")]
+    [JsonDerivedType(typeof(HexPosition), "hex")]
     public abstract class Position
     {
         public abstract int Y { get; set; }
@@ -69,6 +69,10 @@ namespace ChessPlus.Positions
             }
             ClassicPosition pos = (ClassicPosition)obj;
             return Y == pos.Y && X == pos.X;
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Y, X);
         }
     }
     public class HexPosition(int q = 0, int r = 0, int s = 0) : Position

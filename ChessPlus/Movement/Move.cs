@@ -1,4 +1,5 @@
 ﻿using ChessPlus.Positions;
+using System.Text.Json.Serialization;
 
 namespace ChessPlus.Movement
 {
@@ -6,7 +7,7 @@ namespace ChessPlus.Movement
     {
         public Position From { get; set; }
         public Position To { get; set; }
-
+        [JsonConstructor]
         public Move(Position from, Position to)
         {
             From = from;
@@ -16,6 +17,11 @@ namespace ChessPlus.Movement
         {
             From = ClassicPosition.StringToPosition(from);
             To = ClassicPosition.StringToPosition(to);
+        }
+        public Move(int fromY, int fromX, int toY, int toX)
+        {
+            From = new ClassicPosition(fromY, fromX);
+            To = new ClassicPosition(toY, toX);
         }
         public override string ToString()
         {
@@ -62,6 +68,10 @@ namespace ChessPlus.Movement
             }
             Move m = (Move)obj;
             return From.Equals(m.From) && To.Equals(m.To);
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(From, To);
         }
     }
 }
