@@ -116,11 +116,11 @@ namespace ChessPlus.Board.Classic
 
             return fen;
         }
-        public Piece? GetPiece(ClassicPosition pos)
+        public Piece? GetPiece(Position pos)
         {
             return (pos.Y >= 0 && pos.Y < BoardSize && pos.X >= 0 && pos.X < BoardSize) ? board[pos.Y, pos.X] : null;
         }
-        public ClassicPosition GetPositionByPiece(Piece piece)
+        public Position GetPositionByPiece(Piece piece)
         {
             for (int i = 0; i < BoardSize; i++)
             {
@@ -134,6 +134,7 @@ namespace ChessPlus.Board.Classic
             }
             throw new ArgumentException("Piece not found on the board.");
         }
+        
         // Assumes move is legal
         public void MovePiece(Move move, bool simulate = false)
         {
@@ -201,7 +202,6 @@ namespace ChessPlus.Board.Classic
             }
             return null;
         }
-
 
         // Returns all possible moves for the current player, does not account for checks
         public List<Move> GetAllPotentialMoves(bool whiteTurn)

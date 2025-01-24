@@ -1,4 +1,5 @@
 ﻿using ChessPlus.Movement;
+using ChessPlus.Pieces;
 using ChessPlus.Pieces.Glinski;
 using ChessPlus.Positions;
 using ChessPlus.Util;
@@ -105,38 +106,45 @@ namespace ChessPlus.Board.Glinski
             // 
         }
 
-        public HexPiece? GetPiece(HexPosition pos)
+        public string ExportToFen()
         {
-            if (!IsPositionEmpty(pos))
+            throw new NotImplementedException();
+        }
+        public Piece? GetPiece(Position pos)
+        {
+            if (board[(pos.Q, pos.R, pos.S)] != null)
             {
-                return (HexPiece)board[(pos.Q, pos.R, pos.S)];
+                return (Piece?)board[(pos.Q, pos.R, pos.S)];
             }
             return null;
         }
-
-        private bool IsPositionEmpty(HexPosition pos)
+        public Position GetPositionByPiece(Piece piece)
         {
-            if (board[(pos.Q, pos.R, pos.S)] == null)
-            {
-                return true;
-            }
-            return false;
+            throw new NotImplementedException();
         }
         public void MovePiece(Move move, bool simulate = false)
         {
-
+            throw new NotImplementedException();
         }
-        public bool IsCheck(List<Move> moves, bool whiteTurn)
+        public void UndoMove(Move move, Piece? capturedPiece)
         {
-            return true;
+            throw new NotImplementedException();
+        }
+        public List<Move> GetLegalMoves()
+        {
+            throw new NotImplementedException();
+        }
+        public bool IsKingInCheck(bool whiteTurn)
+        {
+            throw new NotImplementedException();
         }
         public bool IsCheckmate()
         {
-            return true;
+            throw new NotImplementedException();
         }
         public bool IsStalemate()
         {
-            return true;
+            throw new NotImplementedException();
         }
     }
 }
