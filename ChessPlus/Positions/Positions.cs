@@ -96,5 +96,30 @@ namespace ChessPlus.Positions
         {
             return new HexPosition(Q + direction.Q, R + direction.R, S + direction.S);
         }
+        public static HexPosition StringToPosition(string position)
+        {
+            throw new NotImplementedException();
+        }
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
+        public bool IsValidPosition()
+        {
+            throw new NotImplementedException();
+        }
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            HexPosition pos = (HexPosition)obj;
+            return Q == pos.Q && R == pos.R && S == pos.S;
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Q, R, S);
+        }
     }
 }

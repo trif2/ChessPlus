@@ -11,19 +11,38 @@ namespace ChessPlus.Board.Glinski
     public class HexBoard : IBoard
     {
         public Hashtable board;
-        private bool whiteTurn;
-        public HexBoard()
+        private bool whiteToMove;
+        private bool whiteKingCastle;
+        private bool whiteQueenCastle;
+        private bool blackKingCastle;
+        private bool blackQueenCastle;
+        private HexPosition? enPassantTarget;
+        private int halfMoveClock;
+        private int fullMoveNumber;
+
+        private const int BoardSize = 5;
+        public const string DefaultBoard = "b/qbk/n1b1n/r5r/ppppppppp/11/5P5/4P1P4/3P1B1P3/2P2B2P2/1PRNQBKNRP1 w - 0 1";
+        public HexBoard(string fen = DefaultBoard)
         {
+            string[] fields = fen.Split(" ");
             board = new Hashtable();
-            InitializeBoard();
+            InitializeBoardPieces(fields[0]);
+
+            whiteToMove = fields[1] == "w";
+
+            enPassantTarget = fields[2] == "-" ? null : HexPosition.StringToPosition(fields[2]);
+
+            halfMoveClock = int.Parse(fields[3]);
+
+            fullMoveNumber = int.Parse(fields[4]);
         }
-        private void InitializeBoard()
+        private void InitializeBoardPieces(string fen)
         {
-            for (int i = -5; i <= 5; i++)
+            for (int i = -BoardSize; i <= BoardSize; i++)
             {
-                for (int j = -5; j <= 5; j++)
+                for (int j = -BoardSize; j <= BoardSize; j++)
                 {
-                    for (int k = -5; k <= 5; k++)
+                    for (int k = -BoardSize; k <= BoardSize; k++)
                     {
                         if (i + j + k == 0)
                         {
