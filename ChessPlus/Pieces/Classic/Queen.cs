@@ -1,4 +1,5 @@
-﻿using ChessPlus.Board.Classic;
+﻿using ChessPlus.Board;
+using ChessPlus.Board.Classic;
 using ChessPlus.Direction;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
@@ -6,13 +7,13 @@ using ChessPlus.Util;
 
 namespace ChessPlus.Pieces.Classic
 {
-    public class Queen : Piece
+    public class Queen : ClassicPiece
     {
         public Queen(bool isWhite) : base(isWhite, 0, false)
         {
             Type = PieceType.Queen;
         }
-        public override List<Move> GetMoves(ClassicBoard board, ClassicPosition pos)
+        public override List<Move> GetMoves(IBoard board, Position pos)
         {
             List<Move> moves = [];
             List<(int Y, int Z)> directions = [];
@@ -28,14 +29,14 @@ namespace ChessPlus.Pieces.Classic
 
             foreach ((int Y, int X) direction in directions)
             {
-                ClassicPosition nextPos = pos.AddDirection(direction, 1);
+                ClassicPosition nextPos = (ClassicPosition) pos.AddDirection(direction, 1);
                 while (IsInBounds(nextPos))
                 {
                     Piece? block = board.GetPiece(nextPos);
                     if (block != null && block.Color == Color) break;
                     moves.Add(new Move(pos, nextPos));
                     if (block != null && block.Color != Color) break;
-                    nextPos = nextPos.AddDirection(direction, 1);
+                    nextPos = (ClassicPosition) nextPos.AddDirection(direction, 1);
                 }
             }
 

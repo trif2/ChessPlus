@@ -4,7 +4,7 @@ using ChessPlus.Positions;
 
 namespace ChessPlus.Board
 {
-    interface IBoard
+    public interface IBoard
     {
         // Exporting
         string ExportToFen();

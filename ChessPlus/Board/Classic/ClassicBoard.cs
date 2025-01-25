@@ -19,7 +19,7 @@ namespace ChessPlus.Board.Classic
         private int halfMoveClock;
         private int fullMoveNumber;
 
-        private const int BoardSize = 8;
+        public const int BoardSize = 8;
         public const string DefaultBoard = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
         public ClassicBoard(string fen = DefaultBoard)
@@ -57,7 +57,7 @@ namespace ChessPlus.Board.Classic
                         j += int.Parse(c.ToString());
                     } else
                     {
-                        board[i, j] = PieceFen.CreatePiece(c);
+                        board[i, j] = PieceFen.CreateClassicPiece(c);
                         j++;
                     }
                 }

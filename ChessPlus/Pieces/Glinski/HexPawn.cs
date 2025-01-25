@@ -1,4 +1,5 @@
-﻿using ChessPlus.Movement;
+﻿using ChessPlus.Board;
+using ChessPlus.Movement;
 using ChessPlus.Positions;
 using ChessPlus.Util;
 
@@ -6,12 +7,12 @@ namespace ChessPlus.Pieces.Glinski
 {
     public class HexPawn : HexPiece
     {
-        public HexPawn(bool isWhite) : base(isWhite, 0)
+        public HexPawn(bool isWhite) : base(isWhite, 0, false)
         {
-            Type = PieceType.Bishop;
+            Type = PieceType.Pawn;
         }
 
-        public override List<Move> GetMoves(HexPosition pos)
+        public override List<Move> GetMoves(IBoard board, Position pos)
         {
             return [];
         }

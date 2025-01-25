@@ -1,10 +1,11 @@
-﻿using ChessPlus.Util;
+﻿using ChessPlus.Pieces.Glinski;
+using ChessPlus.Util;
 
 namespace ChessPlus.Pieces.Classic
 {
     public static class PieceFen
     {
-        public static Piece CreatePiece(char pieceAbbrev)
+        public static Piece CreateClassicPiece(char pieceAbbrev)
         {
             Piece piece = pieceAbbrev switch
             {
@@ -25,6 +26,28 @@ namespace ChessPlus.Pieces.Classic
                 _ => throw new System.Exception("Invalid piece abbreviation")
             };
 
+            return piece;
+        }
+        public static Piece CreateHexPiece(char pieceAbbrev)
+        {
+            Piece piece = pieceAbbrev switch
+            {
+                'P' => new HexPawn(Color.White),
+                'N' => new HexKnight(Color.White),
+                'B' => new HexBishop(Color.White),
+                'R' => new HexRook(Color.White),
+                'Q' => new HexQueen(Color.White),
+                'K' => new HexKing(Color.White),
+
+                'p' => new HexPawn(Color.Black),
+                'n' => new HexKnight(Color.Black),
+                'b' => new HexBishop(Color.Black),
+                'r' => new HexRook(Color.Black),
+                'q' => new HexQueen(Color.Black),
+                'k' => new HexKing(Color.Black),
+
+                _ => throw new System.Exception("Invalid piece abbreviation")
+            };
             return piece;
         }
         public static char GetAbbrev(Piece piece)

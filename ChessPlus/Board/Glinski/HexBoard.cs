@@ -20,7 +20,7 @@ namespace ChessPlus.Board.Glinski
         private int halfMoveClock;
         private int fullMoveNumber;
 
-        private const int BoardSize = 5;
+        public const int BoardSize = 5;
         public const string DefaultBoard = "b/qbk/n1b1n/r5r/ppppppppp/11/5P5/4P1P4/3P1B1P3/2P2B2P2/1PRNQBKNRP1 w - 0 1";
         public HexBoard(string fen = DefaultBoard)
         {

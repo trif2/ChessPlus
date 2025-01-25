@@ -12,6 +12,7 @@ namespace ChessPlus.Positions
         public abstract int Q { get; set; }
         public abstract int R { get; set; }
         public abstract int S { get; set; }
+        public abstract Position AddDirection(object direction, int scalar);
     }
     public class ClassicPosition(int y, int x) : Position
     {
@@ -35,11 +36,19 @@ namespace ChessPlus.Positions
             get => throw new NotSupportedException();
             set => throw new NotSupportedException();
         }
-        public ClassicPosition AddDirection((int Y, int X) direction, int scalar)
+        public override Position AddDirection(object direction, int scalar)
         {
-            int newY = Y + direction.Y * scalar;
-            int newX = X + direction.X * scalar;
-            return new ClassicPosition(newY, newX);
+            if (direction is (int Y, int X))
+            {
+                var (dy, dx) = ((int Y, int X))direction;
+                int newY = Y + dy * scalar;
+                int newX = X + dx * scalar;
+                return new ClassicPosition(newY, newX);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid direction type", nameof(direction));
+            }
         }
         public static ClassicPosition StringToPosition(string position)
         {
@@ -92,9 +101,17 @@ namespace ChessPlus.Positions
             get => throw new NotSupportedException();
             set => throw new NotSupportedException();
         }
-        public HexPosition AddDirection((int Q, int R, int S) direction, int scalar)
+        public override Position AddDirection(object direction, int scalar)
         {
-            return new HexPosition(Q + direction.Q, R + direction.R, S + direction.S);
+            if (direction is (int Q, int R, int S))
+            {
+                var (dq, dr, ds) = ((int Q, int R, int S))direction;
+                return new HexPosition(Q + dq, R + dr, S + ds);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid direction type", nameof(direction));
+            }
         }
         public static HexPosition StringToPosition(string position)
         {

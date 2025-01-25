@@ -1,4 +1,5 @@
-﻿using ChessPlus.Board.Classic;
+﻿using ChessPlus.Board;
+using ChessPlus.Board.Classic;
 using ChessPlus.Direction;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
@@ -6,13 +7,13 @@ using ChessPlus.Util;
 
 namespace ChessPlus.Pieces.Classic
 {
-    public class Pawn : Piece
+    public class Pawn : ClassicPiece
     {
         public Pawn(bool isWhite) : base(isWhite, 0, false)
         {
             Type = PieceType.Pawn;
         }
-        public override List<Move> GetMoves(ClassicBoard board, ClassicPosition pos)
+        public override List<Move> GetMoves(IBoard board, Position pos)
         {
             List<Move> moves = [];
 
@@ -21,28 +22,28 @@ namespace ChessPlus.Pieces.Classic
 
             if (Color)
             {
-                ClassicPosition upLeftPos = pos.AddDirection(ClassicDirections.UpLeft, 1);
+                ClassicPosition upLeftPos = (ClassicPosition)pos.AddDirection(ClassicDirections.UpLeft, 1);
                 attack = board.GetPiece(upLeftPos);
                 if (IsInBounds(upLeftPos) && attack != null && attack.Color != Color)
                 {
                     moves.Add(new Move(pos, upLeftPos));
                 }
 
-                ClassicPosition upRightPos = pos.AddDirection(ClassicDirections.UpRight, 1);
+                ClassicPosition upRightPos = (ClassicPosition)pos.AddDirection(ClassicDirections.UpRight, 1);
                 attack = board.GetPiece(upRightPos);
                 if (IsInBounds(upRightPos) && attack != null && attack.Color != Color)
                 {
                     moves.Add(new Move(pos, upRightPos));
                 }
 
-                ClassicPosition upPos = pos.AddDirection(ClassicDirections.Up, 1);
+                ClassicPosition upPos = (ClassicPosition)pos.AddDirection(ClassicDirections.Up, 1);
                 block = board.GetPiece(upPos);
                 if (IsInBounds(upPos) && block == null)
                 {
                     moves.Add(new Move(pos, upPos));
                     if (!HasMoved)
                     {
-                        ClassicPosition upTwoPos = pos.AddDirection(ClassicDirections.Up, 2);
+                        ClassicPosition upTwoPos = (ClassicPosition)pos.AddDirection(ClassicDirections.Up, 2);
                         block = board.GetPiece(upTwoPos);
                         if (IsInBounds(upTwoPos) && block == null)
                         {
@@ -53,28 +54,28 @@ namespace ChessPlus.Pieces.Classic
             } 
             else
             {
-                ClassicPosition downLeftPos = pos.AddDirection(ClassicDirections.DownLeft, 1);
+                ClassicPosition downLeftPos = (ClassicPosition)pos.AddDirection(ClassicDirections.DownLeft, 1);
                 attack = board.GetPiece(downLeftPos);
                 if (IsInBounds(downLeftPos) && attack != null && attack.Color != Color)
                 {
                     moves.Add(new Move(pos, downLeftPos));
                 }
 
-                ClassicPosition downRightPos = pos.AddDirection(ClassicDirections.DownRight, 1);
+                ClassicPosition downRightPos = (ClassicPosition)pos.AddDirection(ClassicDirections.DownRight, 1);
                 attack = board.GetPiece(downRightPos);
                 if (IsInBounds(downRightPos) && attack != null && attack.Color != Color)
                 {
                     moves.Add(new Move(pos, downRightPos));
                 }
 
-                ClassicPosition downPos = pos.AddDirection(ClassicDirections.Down, 1);
+                ClassicPosition downPos = (ClassicPosition)pos.AddDirection(ClassicDirections.Down, 1);
                 block = board.GetPiece(downPos);
                 if (IsInBounds(downPos) && block == null)
                 {
                     moves.Add(new Move(pos, downPos));
                     if (!HasMoved)
                     {
-                        ClassicPosition downTwoPos = pos.AddDirection(ClassicDirections.Down, 2);
+                        ClassicPosition downTwoPos = (ClassicPosition)pos.AddDirection(ClassicDirections.Down, 2);
                         block = board.GetPiece(downTwoPos);
                         if (IsInBounds(downTwoPos) && block == null)
                         {

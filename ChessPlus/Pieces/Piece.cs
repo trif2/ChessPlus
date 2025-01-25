@@ -1,6 +1,11 @@
-﻿using ChessPlus.Board.Classic;
+﻿using ChessPlus.Board;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ChessPlus.Pieces
 {
@@ -8,7 +13,7 @@ namespace ChessPlus.Pieces
     {
         public bool Color { get; set; }
         public int Type { get; set; }
-        public bool HasMoved { get; set; }
+        public bool HasMoved { get; set; } = false;
         public Piece(bool isWhite, int type, bool hasMoved)
         {
             Color = isWhite;
@@ -16,15 +21,7 @@ namespace ChessPlus.Pieces
             HasMoved = hasMoved;
         }
         // Returned moves may be illegal (validated in Board methods)
-        public abstract List<Move> GetMoves(ClassicBoard board, ClassicPosition pos);
-
-        protected static bool IsInBounds(ClassicPosition pos)
-        {
-            int y = pos.Y;
-            int x = pos.X;
-            return y >= 0 && y < 8 && x >= 0 && x < 8;
-        }
-
+        public abstract List<Move> GetMoves(IBoard board, Position pos);
         public override string ToString()
         {
             switch (Type)
@@ -41,8 +38,9 @@ namespace ChessPlus.Pieces
                     return Color ? "Q" : "q";
                 case 6:
                     return Color ? "K" : "k";
+                default:
+                    return "";
             }
-            return "";
         }
     }
 }
