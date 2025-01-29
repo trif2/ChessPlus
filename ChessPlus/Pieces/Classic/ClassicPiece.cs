@@ -1,4 +1,5 @@
 ﻿using ChessPlus.Board;
+using ChessPlus.Board.Classic;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
 
@@ -13,7 +14,7 @@ namespace ChessPlus.Pieces
         {
             int y = pos.Y;
             int x = pos.X;
-            return y >= 0 && y < 8 && x >= 0 && x < 8;
+            return y >= 0 && y < ClassicBoard.BoardSize && x >= 0 && x < ClassicBoard.BoardSize;
         }
     }
 }

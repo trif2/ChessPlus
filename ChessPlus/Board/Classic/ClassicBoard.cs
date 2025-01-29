@@ -57,7 +57,7 @@ namespace ChessPlus.Board.Classic
                         j += int.Parse(c.ToString());
                     } else
                     {
-                        board[i, j] = PieceFen.CreateClassicPiece(c);
+                        board[i, j] = PieceToFen.CreatePiece(c);
                         j++;
                     }
                 }
@@ -78,7 +78,7 @@ namespace ChessPlus.Board.Classic
                         {
                             fen += gap.ToString();
                         }
-                        fen += PieceFen.GetAbbrev(board[i, j]!);
+                        fen += PieceToFen.GetAbbrev(board[i, j]!);
                         gap = 0;
                     }
                     else
