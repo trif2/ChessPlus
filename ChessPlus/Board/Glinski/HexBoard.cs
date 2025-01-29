@@ -165,5 +165,17 @@ namespace ChessPlus.Board.Glinski
         {
             throw new NotImplementedException();
         }
+        public bool IsInBounds(Position pos)
+        {
+            int q = pos.Q;
+            int r = pos.R;
+            int s = pos.S;
+
+            bool qIsValid = q >= -BoardSize && q <= BoardSize;
+            bool rIsValid = r >= -BoardSize && r <= BoardSize;
+            bool sIsValid = s >= -BoardSize && s <= BoardSize;
+
+            return qIsValid && rIsValid && sIsValid && q + r + s == 0;
+        }
     }
 }

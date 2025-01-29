@@ -240,7 +240,12 @@ namespace ChessPlus.Board.Classic
             }
             return false;
         }
-
+        public bool IsInBounds(Position pos)
+        {
+            int y = pos.Y;
+            int x = pos.X;
+            return y >= 0 && y < BoardSize && x >= 0 && x < BoardSize;
+        }
         public override string ToString()
         {
             string result = "";

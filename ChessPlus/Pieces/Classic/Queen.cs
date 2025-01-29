@@ -30,7 +30,7 @@ namespace ChessPlus.Pieces.Classic
             foreach ((int Y, int X) direction in directions)
             {
                 ClassicPosition nextPos = (ClassicPosition) pos.AddDirection(direction, 1);
-                while (IsInBounds(nextPos))
+                while (board.IsInBounds(nextPos))
                 {
                     Piece? block = board.GetPiece(nextPos);
                     if (block != null && block.Color == Color) break;

@@ -10,11 +10,5 @@ namespace ChessPlus.Pieces
         public ClassicPiece(bool isWhite, int type, bool hasMoved) : base(isWhite, type, hasMoved) { }
         // Returned moves may be illegal (validated in Board methods)
         public override abstract List<Move> GetMoves(IBoard board, Position pos);
-        protected static bool IsInBounds(Position pos)
-        {
-            int y = pos.Y;
-            int x = pos.X;
-            return y >= 0 && y < ClassicBoard.BoardSize && x >= 0 && x < ClassicBoard.BoardSize;
-        }
     }
 }

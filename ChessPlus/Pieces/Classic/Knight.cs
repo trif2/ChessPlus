@@ -46,7 +46,7 @@ namespace ChessPlus.Pieces.Classic
             foreach (ClassicPosition position in positions)
             {
                 Piece? block = board.GetPiece(position);
-                if (IsInBounds(position) && (block == null || block.Color != Color))
+                if (board.IsInBounds(position) && (block == null || block.Color != Color))
                 {
                     moves.Add(new Move(pos, position));
                 }

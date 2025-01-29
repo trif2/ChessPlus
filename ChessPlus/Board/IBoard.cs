@@ -20,5 +20,6 @@ namespace ChessPlus.Board
         bool IsKingInCheck(bool whiteTurn);
         bool IsCheckmate();
         bool IsStalemate();
+        bool IsInBounds(Position pos);
     }
 }

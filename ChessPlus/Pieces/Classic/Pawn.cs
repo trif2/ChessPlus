@@ -24,28 +24,28 @@ namespace ChessPlus.Pieces.Classic
             {
                 ClassicPosition upLeftPos = (ClassicPosition)pos.AddDirection(ClassicDirections.UpLeft, 1);
                 attack = board.GetPiece(upLeftPos);
-                if (IsInBounds(upLeftPos) && attack != null && attack.Color != Color)
+                if (board.IsInBounds(upLeftPos) && attack != null && attack.Color != Color)
                 {
                     moves.Add(new Move(pos, upLeftPos));
                 }
 
                 ClassicPosition upRightPos = (ClassicPosition)pos.AddDirection(ClassicDirections.UpRight, 1);
                 attack = board.GetPiece(upRightPos);
-                if (IsInBounds(upRightPos) && attack != null && attack.Color != Color)
+                if (board.IsInBounds(upRightPos) && attack != null && attack.Color != Color)
                 {
                     moves.Add(new Move(pos, upRightPos));
                 }
 
                 ClassicPosition upPos = (ClassicPosition)pos.AddDirection(ClassicDirections.Up, 1);
                 block = board.GetPiece(upPos);
-                if (IsInBounds(upPos) && block == null)
+                if (board.IsInBounds(upPos) && block == null)
                 {
                     moves.Add(new Move(pos, upPos));
                     if (!HasMoved)
                     {
                         ClassicPosition upTwoPos = (ClassicPosition)pos.AddDirection(ClassicDirections.Up, 2);
                         block = board.GetPiece(upTwoPos);
-                        if (IsInBounds(upTwoPos) && block == null)
+                        if (board.IsInBounds(upTwoPos) && block == null)
                         {
                             moves.Add(new Move(pos, upTwoPos));
                         }
@@ -56,28 +56,28 @@ namespace ChessPlus.Pieces.Classic
             {
                 ClassicPosition downLeftPos = (ClassicPosition)pos.AddDirection(ClassicDirections.DownLeft, 1);
                 attack = board.GetPiece(downLeftPos);
-                if (IsInBounds(downLeftPos) && attack != null && attack.Color != Color)
+                if (board.IsInBounds(downLeftPos) && attack != null && attack.Color != Color)
                 {
                     moves.Add(new Move(pos, downLeftPos));
                 }
 
                 ClassicPosition downRightPos = (ClassicPosition)pos.AddDirection(ClassicDirections.DownRight, 1);
                 attack = board.GetPiece(downRightPos);
-                if (IsInBounds(downRightPos) && attack != null && attack.Color != Color)
+                if (board.IsInBounds(downRightPos) && attack != null && attack.Color != Color)
                 {
                     moves.Add(new Move(pos, downRightPos));
                 }
 
                 ClassicPosition downPos = (ClassicPosition)pos.AddDirection(ClassicDirections.Down, 1);
                 block = board.GetPiece(downPos);
-                if (IsInBounds(downPos) && block == null)
+                if (board.IsInBounds(downPos) && block == null)
                 {
                     moves.Add(new Move(pos, downPos));
                     if (!HasMoved)
                     {
                         ClassicPosition downTwoPos = (ClassicPosition)pos.AddDirection(ClassicDirections.Down, 2);
                         block = board.GetPiece(downTwoPos);
-                        if (IsInBounds(downTwoPos) && block == null)
+                        if (board.IsInBounds(downTwoPos) && block == null)
                         {
                             moves.Add(new Move(pos, downTwoPos));
                         }
