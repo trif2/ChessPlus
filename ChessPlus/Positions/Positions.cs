@@ -38,12 +38,12 @@ namespace ChessPlus.Positions
         }
         public override Position AddDirection(object direction, int scalar)
         {
-            if (direction is (int Y, int X))
+            if (direction is (int dy, int dx))
             {
-                var (dy, dx) = ((int Y, int X))direction;
                 int newY = Y + dy * scalar;
                 int newX = X + dx * scalar;
-                return new ClassicPosition(newY, newX);
+                var newPosition = new ClassicPosition(newY, newX);
+                return newPosition;
             }
             else
             {
