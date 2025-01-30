@@ -220,7 +220,7 @@ namespace ChessPlus.Board.Glinski
 
                     currRow.Add((HexPiece?)board[new HexPosition(q, r, s)]);
 
-                    currPos = (HexPosition)currPos.AddDirection(HexDirections.FullRight, 1);
+                    currPos = (HexPosition)currPos.AddDirection(HexDirections.DiagRight, 1);
                 } while (IsInBounds(currPos));
                 rows.Add(currRow);
             }
