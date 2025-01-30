@@ -118,7 +118,7 @@ namespace ChessPlus.Board.Classic
         }
         public Piece? GetPiece(Position pos)
         {
-            return (pos.Y >= 0 && pos.Y < BoardSize && pos.X >= 0 && pos.X < BoardSize) ? board[pos.Y, pos.X] : null;
+            return (IsInBounds(pos)) ? board[pos.Y, pos.X] : null;
         }
         public Position GetPositionByPiece(Piece piece)
         {
