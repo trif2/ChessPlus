@@ -120,20 +120,6 @@ namespace ChessPlus.Board.Classic
         {
             return (IsInBounds(pos)) ? board[pos.Y, pos.X] : null;
         }
-        public Position GetPositionByPiece(Piece piece)
-        {
-            for (int i = 0; i < BoardSize; i++)
-            {
-                for (int j = 0; j < BoardSize; j++)
-                {
-                    if (board[i, j] == piece)
-                    {
-                        return new ClassicPosition(i, j);
-                    }
-                }
-            }
-            throw new ArgumentException("Piece not found on the board.");
-        }
         
         // Assumes move is legal
         public void MovePiece(Move move, bool simulate = false)

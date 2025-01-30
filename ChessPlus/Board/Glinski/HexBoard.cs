@@ -164,10 +164,6 @@ namespace ChessPlus.Board.Glinski
             }
             return null;
         }
-        public Position GetPositionByPiece(Piece piece)
-        {
-            throw new NotImplementedException();
-        }
         public void MovePiece(Move move, bool simulate = false)
         {
             throw new NotImplementedException();

@@ -11,7 +11,6 @@ namespace ChessPlus.Board
         
         // Piece Management
         Piece? GetPiece(Position pos);
-        Position GetPositionByPiece(Piece piece);
         void MovePiece(Move move, bool simulate = false);
         void UndoMove(Move move, Piece? capturedPiece);
         
