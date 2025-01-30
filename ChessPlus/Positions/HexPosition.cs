@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.InteropServices;
+using System.Text.Json.Serialization;
 
 namespace ChessPlus.Positions
 {
@@ -44,7 +45,11 @@ namespace ChessPlus.Positions
         }
         public bool IsValidPosition()
         {
-            throw new NotImplementedException();
+            if (Q < -5 || Q > 5 || R < -5 || R > 5 || S < -5 || S > 5 || Q + R + S != 0)
+            {
+                return false;
+            }
+            return true;
         }
         public override bool Equals(object? obj)
         {
