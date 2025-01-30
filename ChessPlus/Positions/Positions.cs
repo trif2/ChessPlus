@@ -103,10 +103,13 @@ namespace ChessPlus.Positions
         }
         public override Position AddDirection(object direction, int scalar)
         {
-            if (direction is (int Q, int R, int S))
+            if (direction is (int dq, int dr, int ds))
             {
-                var (dq, dr, ds) = ((int Q, int R, int S))direction;
-                return new HexPosition(Q + dq, R + dr, S + ds);
+                int newQ = Q + dq * scalar;
+                int newR = R + dr * scalar;
+                int newS = S + ds * scalar;
+                var newPosition = new HexPosition(newQ, newR, newS);
+                return newPosition;
             }
             else
             {
@@ -119,7 +122,7 @@ namespace ChessPlus.Positions
         }
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"({Q}, {R}, {S})";
         }
         public bool IsValidPosition()
         {
