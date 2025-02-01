@@ -9,7 +9,7 @@ namespace ChessPlus.Board.Classic
 {
     public class ClassicBoard : IBoard
     {
-        private Piece?[,] board;
+        private ClassicPiece?[,] board;
         private bool whiteToMove;
         private bool whiteKingCastle;
         private bool whiteQueenCastle;
@@ -25,7 +25,7 @@ namespace ChessPlus.Board.Classic
         public ClassicBoard(string fen = DefaultBoard)
         {
             string[] fields = fen.Split(" ");
-            board = new Piece?[BoardSize, BoardSize];
+            board = new ClassicPiece?[BoardSize, BoardSize];
             InitializeBoardPieces(fields[0]);
 
             whiteToMove = fields[1] == "w";
@@ -57,7 +57,7 @@ namespace ChessPlus.Board.Classic
                         j += int.Parse(c.ToString());
                     } else
                     {
-                        board[i, j] = PieceToFen.CreatePiece(c);
+                        board[i, j] = (ClassicPiece?) PieceToFen.CreatePiece(c);
                         j++;
                     }
                 }
@@ -134,7 +134,7 @@ namespace ChessPlus.Board.Classic
         public void UndoMove(Move move, Piece? capturedPiece)
         {
             board[move.From.Y, move.From.X] = board[move.To.Y, move.To.X];
-            board[move.To.Y, move.To.X] = capturedPiece;
+            board[move.To.Y, move.To.X] = (ClassicPiece?) capturedPiece;
         }
         public List<Move> GetLegalMoves()
         {
@@ -179,7 +179,7 @@ namespace ChessPlus.Board.Classic
             for (int i = 0; i < BoardSize; i++) {
                 for (int j = 0; j < BoardSize; j++)
                 {
-                    Piece? piece = board[i, j];
+                    ClassicPiece? piece = board[i, j];
                     if (piece != null && piece.Color == whiteTurn && piece.Type == PieceType.King)
                     {
                         return new ClassicPosition(i, j);
@@ -198,7 +198,7 @@ namespace ChessPlus.Board.Classic
             {
                 for (int j = 0; j < BoardSize; j++)
                 {
-                    Piece? piece = board[i, j];
+                    ClassicPiece? piece = board[i, j];
                     if (piece != null && whiteTurn == piece.Color)
                     {
                         ClassicPosition pos = new ClassicPosition(i, j);

@@ -154,38 +154,98 @@ namespace ChessPlus.Board.Glinski
         }
         public Piece? GetPiece(Position pos)
         {
-            if (!IsInBounds(pos))
-            {
-                return null;
-            }
-            if (board[(pos.Q, pos.R, pos.S)] != null)
-            {
-                return (Piece?)board[(pos.Q, pos.R, pos.S)];
-            }
-            return null;
+            return (IsInBounds(pos)) ? (Piece?) board[pos] : null;
         }
         public void MovePiece(Move move, bool simulate = false)
         {
-            throw new NotImplementedException();
+            board[move.To] = board[move.From];
+            board[move.From] = null;
+            if (!simulate)
+            {
+                whiteToMove = !whiteToMove;
+            }
         }
         public void UndoMove(Move move, Piece? capturedPiece)
         {
-            throw new NotImplementedException();
+            board[move.From] = board[move.To];
+            board[move.To] = (HexPiece?) capturedPiece;
         }
         public List<Move> GetLegalMoves()
         {
-            return [];
+            List<Move> moves = GetAllPotentialMoves(whiteToMove);
+
+            for (int i = moves.Count - 1; i >= 0; i--)
+            {
+                Move move = moves[i];
+                Piece? prevCapture = GetPiece((HexPosition)move.To);
+                // Simulate move
+                MovePiece(move, true);
+                if (IsKingInCheck(whiteToMove))
+                {
+                    moves.RemoveAt(i);
+                }
+                UndoMove(move, prevCapture);
+            }
+            return moves;
         }
         public bool IsKingInCheck(bool whiteTurn)
         {
+            HexPosition kingPosition = FindKing(whiteTurn) ?? throw new System.Exception("King not found");
+
+            List<Move> moves = GetAllPotentialMoves(!whiteTurn);
+            foreach (Move move in moves)
+            {
+                if (move.To == kingPosition)
+                {
+                    return true;
+                }
+            }
+
             return false;
+        }
+        private HexPosition? FindKing(bool whiteTurn)
+        {
+            foreach (DictionaryEntry entry in board)
+            {
+                HexPosition position = (HexPosition) entry.Key;
+                HexPiece? piece = (HexPiece?) entry.Value;
+                if (piece != null && piece.Color == whiteTurn && piece.Type == PieceType.King)
+                {
+                    return position;
+                }
+            }
+            return null;
+        }
+        public List<Move> GetAllPotentialMoves(bool whiteTurn)
+        {
+            List<Move> moves = [];
+            // For each Piece on the board, call GetMoves() and add to list
+            foreach (DictionaryEntry entry in board)
+            {
+                HexPosition pos = (HexPosition) entry.Key;
+                HexPiece? piece = (HexPiece?) entry.Value;
+                if (piece != null && whiteTurn == piece.Color)
+                {
+                    moves.AddRange(piece.GetMoves(this, pos));
+                }
+            }
+
+            return moves;
         }
         public bool IsCheckmate()
         {
+            if (GetLegalMoves().Count == 0 && IsKingInCheck(whiteToMove))
+            {
+                return true;
+            }
             return false;
         }
         public bool IsStalemate()
         {
+            if (GetLegalMoves().Count == 0 && !IsKingInCheck(whiteToMove))
+            {
+                return true;
+            }
             return false;
         }
         public bool IsInBounds(Position pos)

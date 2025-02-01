@@ -17,6 +17,7 @@ namespace ChessPlus.Board
         // Game State
         List<Move> GetLegalMoves();
         bool IsKingInCheck(bool whiteTurn);
+        List<Move> GetAllPotentialMoves(bool whiteTurn);
         bool IsCheckmate();
         bool IsStalemate();
         bool IsInBounds(Position pos);
