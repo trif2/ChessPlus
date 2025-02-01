@@ -43,7 +43,7 @@ namespace ChessPlus.Pieces.Glinski
                     moves.Add(new Move(pos, upPos));
                     if (!HasMoved)
                     {
-                        HexPosition upTwoPos = (HexPosition)pos.AddDirection(ClassicDirections.Up, 2);
+                        HexPosition upTwoPos = (HexPosition)pos.AddDirection(HexDirections.Up, 2);
                         block = board.GetPiece(upTwoPos);
                         if (board.IsInBounds(upTwoPos) && block == null)
                         {
