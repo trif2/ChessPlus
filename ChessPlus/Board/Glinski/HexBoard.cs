@@ -27,13 +27,12 @@ namespace ChessPlus.Board.Glinski
 
         private readonly static HexPosition Top = new HexPosition(0, -5, 5);
         private readonly static HexPosition TopLeft = new HexPosition(-5, 0, 5);
-        private readonly static HexPosition TopRight = new HexPosition(5, -5, 0);
         private readonly static HexPosition BottomLeft = new HexPosition(-5, 5, 0);
-        private readonly static HexPosition BottomRight = new HexPosition(5, 0, -5);
-        private readonly static HexPosition Bottom = new HexPosition(0, 5, -5);
 
-        private List<HexPosition> rowPositions;
-        private List<HexPosition> colPositions;
+        private List<HexPosition> RowPositions;
+        private List<HexPosition> ColPositions;
+
+        private readonly Dictionary<string, HexPosition> Hexes = Hex.Hexes;
         public HexBoard(string fen = DefaultBoard)
         {
             string[] fields = fen.Split(" ");
@@ -41,8 +40,8 @@ namespace ChessPlus.Board.Glinski
 
             InitializeBoardPieces(fields[0]);
 
-            rowPositions = [];
-            colPositions = [];
+            RowPositions = [];
+            ColPositions = [];
             GetRowColPositions();
 
             whiteToMove = fields[1] == "w";
@@ -63,7 +62,6 @@ namespace ChessPlus.Board.Glinski
                     {
                         if (i + j + k == 0)
                         {
-                            Console.WriteLine($"Adding {i}, {j}, {k}");
                             board.Add(new HexPosition(i, j, k), null);
                         }
                     }
@@ -71,11 +69,11 @@ namespace ChessPlus.Board.Glinski
             }
             // Manually add pieces
             // Kings
-            board[new HexPosition(1, 4, -5)] = new HexKing(Color.White); // White King
-            board[new HexPosition(1, -5, 4)] = new HexKing(Color.Black); // Black King
+            board[Hexes["g1"]] = new HexKing(Color.White); // White King
+            board[Hexes["g10"]] = new HexKing(Color.Black); // Black King
             // Queens
-            board[new HexPosition(-1, 5, -4)] = new HexQueen(Color.White); // White Queen
-            board[new HexPosition(-1, -4, 5)] = new HexQueen(Color.Black); // Black Queen
+            board[Hexes["e1"]] = new HexQueen(Color.White); // White Queen
+            board[Hexes["e10"]] = new HexQueen(Color.Black); // Black Queen
 
             // Bishops
             for (int i = 3; i <= 5; i++)
@@ -85,16 +83,16 @@ namespace ChessPlus.Board.Glinski
             }
 
             // Knights
-            board[new HexPosition(2, 3, -5)] = new HexKnight(Color.White); // White Knight 1
-            board[new HexPosition(-2, 5, -3)] = new HexKnight(Color.White); // White Knight 2
-            board[new HexPosition(2, -5, 3)] = new HexKnight(Color.Black); // Black Knight 1
-            board[new HexPosition(-2, -3, 5)] = new HexKnight(Color.Black); // Black Knight 2
+            board[Hexes["d1"]] = new HexKnight(Color.White); // White Knight 1
+            board[Hexes["h1"]] = new HexKnight(Color.White); // White Knight 2
+            board[Hexes["d9"]] = new HexKnight(Color.Black); // Black Knight 1
+            board[Hexes["h9"]] = new HexKnight(Color.Black); // Black Knight 2
 
             // Rooks
-            board[new HexPosition(3, 2, -5)] = new HexRook(Color.White); // White Rook 1
-            board[new HexPosition(-3, 5, -2)] = new HexRook(Color.White); // White Rook 2
-            board[new HexPosition(3, -5, 2)] = new HexRook(Color.Black); // Black Rook 1
-            board[new HexPosition(-3, -2, 5)] = new HexRook(Color.Black); // Black Rook 2
+            board[Hexes["c1"]] = new HexRook(Color.White); // White Rook 1
+            board[Hexes["i1"]] = new HexRook(Color.White); // White Rook 2
+            board[Hexes["c8"]] = new HexRook(Color.Black); // Black Rook 1
+            board[Hexes["i8"]] = new HexRook(Color.Black); // Black Rook 2
 
             // Pawns
             HexPosition whitePos = new HexPosition(-4, 5, -1);
@@ -120,31 +118,31 @@ namespace ChessPlus.Board.Glinski
             HexPosition currPos = Top;
             while (!currPos.Equals(TopLeft)) 
             {
-                rowPositions.Add(currPos);
+                RowPositions.Add(currPos);
                 currPos = (HexPosition) currPos.AddDirection(HexDirections.DownLeft, 1);
             }
             while (!currPos.Equals(BottomLeft))
             {
-                rowPositions.Add(currPos);
+                RowPositions.Add(currPos);
                 currPos = (HexPosition) currPos.AddDirection(HexDirections.DownRight, 1);
-                rowPositions.Add(currPos);
+                RowPositions.Add(currPos);
                 currPos = (HexPosition)currPos.AddDirection(HexDirections.DownLeft, 1);
             }
             while (IsInBounds(currPos))
             {
-                rowPositions.Add(currPos);
+                RowPositions.Add(currPos);
                 currPos = (HexPosition) currPos.AddDirection(HexDirections.DownRight, 1);
             }
 
             currPos = TopLeft;
             while (!currPos.Equals(Top))
             {
-                colPositions.Add(currPos);
+                ColPositions.Add(currPos);
                 currPos = (HexPosition)currPos.AddDirection(HexDirections.UpRight, 1);
             }
             while (IsInBounds(currPos))
             {
-                colPositions.Add(currPos);
+                ColPositions.Add(currPos);
                 currPos = (HexPosition)currPos.AddDirection(HexDirections.DownRight, 1);
             }
         }
@@ -264,7 +262,7 @@ namespace ChessPlus.Board.Glinski
         {
             List<List<HexPiece?>> rows = [];
             List<HexPiece?> currRow;
-            foreach (HexPosition position in rowPositions)
+            foreach (HexPosition position in RowPositions)
             {
                 currRow = [];
                 HexPosition currPos = position;

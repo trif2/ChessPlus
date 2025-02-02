@@ -37,7 +37,14 @@ namespace ChessPlus.Positions
         }
         public static HexPosition StringToPosition(string position)
         {
-            throw new NotImplementedException();
+            if (Hex.Hexes.TryGetValue(position, out HexPosition? value))
+            {
+                return value;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid position", nameof(position));
+            }
         }
         public override string ToString()
         {
