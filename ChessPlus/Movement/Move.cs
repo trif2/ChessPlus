@@ -13,52 +13,9 @@ namespace ChessPlus.Movement
             From = from;
             To = to;
         }
-        public Move(string from, string to)
-        {
-            From = ClassicPosition.StringToPosition(from);
-            To = ClassicPosition.StringToPosition(to);
-        }
-        public Move(int fromY, int fromX, int toY, int toX)
-        {
-            From = new ClassicPosition(fromY, fromX);
-            To = new ClassicPosition(toY, toX);
-        }
         public override string ToString()
         {
-            return PositionToString(From) + PositionToString(To);
-        }
-        private string PositionToString(Position pos)
-        {
-            string letter = "";
-            switch (pos.X)
-            {
-                case 0:
-                    letter = "a";
-                    break;
-                case 1:
-                    letter = "b";
-                    break;
-                case 2:
-                    letter = "c";
-                    break;
-                case 3:
-                    letter = "d";
-                    break;
-                case 4:
-                    letter = "e";
-                    break;
-                case 5:
-                    letter = "f";
-                    break;
-                case 6:
-                    letter = "g";
-                    break;
-                case 7:
-                    letter = "h";
-                    break;
-            }
-            int number = 8 - pos.Y;
-            return letter + number.ToString();
+            return From.ToString() + To.ToString();
         }
         public override bool Equals(object? obj)
         {
