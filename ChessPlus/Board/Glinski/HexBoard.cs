@@ -14,10 +14,6 @@ namespace ChessPlus.Board.Glinski
     {
         public Hashtable board;
         private bool whiteToMove;
-        private bool whiteKingCastle;
-        private bool whiteQueenCastle;
-        private bool blackKingCastle;
-        private bool blackQueenCastle;
         private HexPosition? enPassantTarget;
         private int halfMoveClock;
         private int fullMoveNumber;
@@ -128,7 +124,49 @@ namespace ChessPlus.Board.Glinski
         }
         public string ExportToFen()
         {
-            throw new NotImplementedException();
+            string fen = "";
+            for (int q = -BoardSize; q <= BoardSize; q++)
+            {
+                int gap = 0;
+                for (int r = BoardSize; r >= -BoardSize; r--)
+                {
+                    int s = -q - r;
+
+                    if (Math.Abs(s) <= BoardSize)
+                    {
+                        HexPosition pos = new HexPosition(q, r, s);
+                        if (board[pos] != null)
+                        {
+                            if (gap > 0)
+                            {
+                                fen += gap.ToString();
+                            }
+                            fen += PieceToFen.GetAbbrev((Piece) board[pos]!);
+                            gap = 0;
+                        }
+                        else
+                        {
+                            gap++;
+                        }
+                    }
+                }
+                if (gap > 0)
+                {
+                    fen += gap.ToString();
+                }
+                if (q < BoardSize)
+                {
+                    fen += "/";
+                }
+            }
+            fen += " ";
+            fen += whiteToMove ? "w" : "b";
+            fen += " ";
+            fen += enPassantTarget == null ? "-" : enPassantTarget.ToString();
+            fen += " ";
+            fen += halfMoveClock.ToString() + " " + fullMoveNumber.ToString();
+
+            return fen;
         }
         public Piece? GetPiece(Position pos)
         {
