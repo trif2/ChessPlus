@@ -1,9 +1,7 @@
 ﻿using ChessPlus.Movement;
 using ChessPlus.Pieces;
-using ChessPlus.Pieces.Classic;
 using ChessPlus.Positions;
 using ChessPlus.Util;
-using System.Runtime.CompilerServices;
 
 namespace ChessPlus.Board.Classic
 {
@@ -55,9 +53,10 @@ namespace ChessPlus.Board.Classic
                     if (char.IsDigit(c))
                     {
                         j += int.Parse(c.ToString());
-                    } else
+                    } 
+                    else
                     {
-                        board[i, j] = (ClassicPiece?) PieceToFen.CreatePiece(c);
+                        board[i, j] = PieceToFen.CreateClassicPiece(c);
                         j++;
                     }
                 }

@@ -23,7 +23,7 @@ namespace ChessPlus.Board.Glinski
         private int fullMoveNumber;
 
         public const int BoardSize = 5;
-        public const string DefaultBoard = "b/qbk/n1b1n/r5r/ppppppppp/11/5P5/4P1P4/3P1B1P3/2P2B2P2/1PRNQBKNRP1 w - 0 1";
+        public const string DefaultBoard = "6/P5p/RP4pr/N1P3p1n/Q2P2p2q/BBB1P1p1bbb/K2P2p2k/N1P3p1n/RP4pr/P5p/6 w - 0 1";
 
         private readonly static HexPosition Top = new HexPosition(0, -5, 5);
         private readonly static HexPosition TopLeft = new HexPosition(-5, 0, 5);
@@ -54,63 +54,43 @@ namespace ChessPlus.Board.Glinski
         }
         private void InitializeBoardPieces(string fen)
         {
-            for (int i = -BoardSize; i <= BoardSize; i++)
+            foreach (HexPosition pos in Hexes.Values)
             {
-                for (int j = -BoardSize; j <= BoardSize; j++)
+                board.Add(pos, null);
+            }
+
+            string[] rows = fen.Split("/");
+            int q = -BoardSize;
+            foreach (string row in rows)
+            {
+                int r = BoardSize;
+                int s = -q - r;
+                while (Math.Abs(s) > BoardSize)
                 {
-                    for (int k = -BoardSize; k <= BoardSize; k++)
-                    {
-                        if (i + j + k == 0)
-                        {
-                            board.Add(new HexPosition(i, j, k), null);
-                        }
-                    }
+                    r--;
+                    s++;
                 }
-            }
-            // Manually add pieces
-            // Kings
-            board[Hexes["g1"]] = new HexKing(Color.White); // White King
-            board[Hexes["g10"]] = new HexKing(Color.Black); // Black King
-            // Queens
-            board[Hexes["e1"]] = new HexQueen(Color.White); // White Queen
-            board[Hexes["e10"]] = new HexQueen(Color.Black); // Black Queen
-
-            // Bishops
-            for (int i = 3; i <= 5; i++)
-            {
-                board[new HexPosition(0, i, -i)] = new HexBishop(Color.White); // White Bishops
-                board[new HexPosition(0, -i, i)] = new HexBishop(Color.Black); // Black Bishops
-            }
-
-            // Knights
-            board[Hexes["d1"]] = new HexKnight(Color.White); // White Knight 1
-            board[Hexes["h1"]] = new HexKnight(Color.White); // White Knight 2
-            board[Hexes["d9"]] = new HexKnight(Color.Black); // Black Knight 1
-            board[Hexes["h9"]] = new HexKnight(Color.Black); // Black Knight 2
-
-            // Rooks
-            board[Hexes["c1"]] = new HexRook(Color.White); // White Rook 1
-            board[Hexes["i1"]] = new HexRook(Color.White); // White Rook 2
-            board[Hexes["c8"]] = new HexRook(Color.Black); // Black Rook 1
-            board[Hexes["i8"]] = new HexRook(Color.Black); // Black Rook 2
-
-            // Pawns
-            HexPosition whitePos = new HexPosition(-4, 5, -1);
-            HexPosition blackPos = new HexPosition(-4, -1, 5);
-            HexPosition target = new HexPosition(0, 1, -1);
-            while (!whitePos.Equals(target))
-            {
-                board[whitePos] = new HexPawn(Color.White);
-                board[blackPos] = new HexPawn(Color.Black);
-                whitePos = (HexPosition)whitePos.AddDirection(HexDirections.UpRight, 1);
-                blackPos = (HexPosition)blackPos.AddDirection(HexDirections.DownRight, 1);
-            }
-            while (IsInBounds(whitePos))
-            {
-                board[whitePos] = new HexPawn(Color.White);
-                board[blackPos] = new HexPawn(Color.Black);
-                whitePos = (HexPosition)whitePos.AddDirection(HexDirections.DownRight, 1);
-                blackPos = (HexPosition)blackPos.AddDirection(HexDirections.UpRight, 1);
+                for (int k = 0; k < row.Length; k++)
+                {
+                    if (Math.Abs(s) <= BoardSize)
+                    {
+                        char c = row[k];
+                        if (char.IsDigit(c))
+                        {
+                            r -= int.Parse(c.ToString());
+                            s += int.Parse(c.ToString());
+                        } 
+                        else
+                        {
+                            HexPosition pos = new HexPosition(q, r, s);
+                            board[pos] = PieceToFen.CreateHexPiece(c);
+                            Console.WriteLine($"Adding {c} at {pos}");
+                            r--;
+                            s++;
+                        }
+                    }    
+                }
+                q++;
             }
         }
         private void GetRowColPositions()
