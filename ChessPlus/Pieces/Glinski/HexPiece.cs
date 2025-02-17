@@ -1,5 +1,4 @@
 ﻿using ChessPlus.Board;
-using ChessPlus.Board.Glinski;
 using ChessPlus.Movement;
 using ChessPlus.Positions;
 namespace ChessPlus.Pieces.Glinski
