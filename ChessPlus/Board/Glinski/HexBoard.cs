@@ -80,7 +80,6 @@ namespace ChessPlus.Board.Glinski
                         {
                             HexPosition pos = new HexPosition(q, r, s);
                             board[pos] = PieceToFen.CreateHexPiece(c);
-                            Console.WriteLine($"Adding {c} at {pos}");
                             r--;
                             s++;
                         }

@@ -21,7 +21,6 @@
                     if (Math.Abs(s) <= size)
                     {
                         string key = $"{columns[q + size]}{rank}";
-                        Console.WriteLine($"Adding {key}, ({q}, {r}, {s})");
                         Hexes[key] = new HexPosition(q, r, s);
                         rank++;
                     }
