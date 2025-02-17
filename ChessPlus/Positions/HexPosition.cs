@@ -20,6 +20,24 @@ namespace ChessPlus.Positions
             get => throw new NotSupportedException();
             set => throw new NotSupportedException();
         }
+
+        public static HexPosition ColRowToHexPos(int col, int row)
+        {
+            int q = col - 5;
+            int r = -5;
+            int s = -q - r;
+            while (Math.Abs(s) > 5)
+            {
+                r++;
+                s--;
+            }
+            for (int i = 0; i < row; i++)
+            {
+                r++;
+                s--;
+            }
+            return new HexPosition(q, r, s);
+        }
         public override Position AddDirection(object direction, int scalar)
         {
             if (direction is (int dq, int dr, int ds))
